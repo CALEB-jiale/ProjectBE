@@ -15,7 +15,7 @@ public:
     static float DETECT_CAPACITY_MAX;
     
     Eye(Bug* owner, float detectCapacity, float distance, float angle);
-    virtual ~Eye() override;
+    virtual void draw(UImg& support) const;
 };
 
 #endif

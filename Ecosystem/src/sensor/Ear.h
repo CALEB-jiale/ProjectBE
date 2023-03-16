@@ -12,7 +12,8 @@ public:
     static float DETECT_CAPACITY_MIN;
     static float DETECT_CAPACITY_MAX;
     
-    Ear(Bug* owner, float detectCapacity, float distance);
+    Ear(Bug* owner);
+    virtual void draw(UImg& support) const;
 };
 
 #endif
