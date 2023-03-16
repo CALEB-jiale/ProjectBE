@@ -6,14 +6,16 @@ class Ear;
 
 class SensorFactory {
 private:
-    SensorFactory* factory;
+    static SensorFactory* factory;
     SensorFactory();
+    SensorFactory(const SensorFactory &sensorFactory) = delete;
+    SensorFactory& operator=(const SensorFactory& sensorFactory) = delete;
 
 public:
     ~SensorFactory();
-    SensorFactory* getSensorFactory();
-    Eye* getEye();
-    Ear* getEar();
+    static SensorFactory* getSensorFactory();
+    Eye* getEye(Bug* bug) const;
+    Ear* getEar(Bug* bug) const;
 };
 
 #endif
