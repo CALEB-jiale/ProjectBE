@@ -1,23 +1,21 @@
-#if !defined(_TEUX_H_)
-#define _TEUX_H_
-#include "ICapteur.h"
+#ifndef _EYE_H_
+#define _EYE_H_
 
-class Yeux : public ICapteur {
-private:
-  double distance_min;
-  double distance_max;
-  float champ_vision;
+#include "Sensor.h"
 
+class Bug;
+
+class Eye : public Sensor {
 public:
-  Yeux(double distance_min, double distance_max, double champ_vision,
-       float capacite);
-  ~Yeux() override = default;
-  // move already
-  void draw(UImg &support, double xt, double yt, double orientation) override;
-  bool JeTePercoit(int x, int y, double orientation,
-                   const Bestiole &b) const override;
-
-  std::unique_ptr<ICapteur> clone() const override;
+    static float ANGLE_MIN;
+    static float ANGLE_MAX;
+    static float DISTANCE_MIN;
+    static float DISTANCE_MAX;
+    static float DETECT_CAPACITY_MIN;
+    static float DETECT_CAPACITY_MAX;
+    
+    Eye(Bug* owner, float detectCapacity, float distance, float angle);
+    virtual ~Eye() override;
 };
 
-#endif // _TEUX_H_
+#endif

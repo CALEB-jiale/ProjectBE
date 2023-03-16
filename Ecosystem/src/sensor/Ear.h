@@ -1,20 +1,18 @@
-#if !defined(_OREILLES_H_)
-#define _OREILLES_H_
-#include "ICapteur.h"
+#ifndef _EAR_H_
+#define _EAR_H_
 
-class Oreilles : public ICapteur {
-private:
-  double distance_min;
-  double distance_max;
+#include "Sensor.h"
 
+class Bug;
+
+class Ear : public Sensor {
 public:
-  Oreilles(double distance_min, double distance_max, double capacite_detection);
-  ~Oreilles() override = default;
-  // move already defined
-  void draw(UImg &support, double xt, double yt, double orientation) override;
-  bool JeTePercoit(int x, int y, double orientation,
-                   const Bestiole &b) const override;
-  std::unique_ptr<ICapteur> clone() const override;
+    static float DISTANCE_MIN;
+    static float DISTANCE_MAX;
+    static float DETECT_CAPACITY_MIN;
+    static float DETECT_CAPACITY_MAX;
+    
+    Ear(Bug* owner, float detectCapacity, float distance);
 };
 
-#endif // _OREILLES_H_
+#endif
