@@ -8,9 +8,9 @@ INCLUDES= -I ../include/HMI  -I $(INCX11)
 LIBS = -L $(LIBX11) -lX11 -lpthread
 
 # user modify: subdir, target and objects
-VPATH 	= ./bestiole ./environment ./factory ./comportement ./capteur
+VPATH 	= ./bug ./environment ./behaviour ./sensor ./accessory
 EXENAME = main
-OBJECTS	= Aquarium.o Milieu.o Bug.o main.o BugFactory.o Ear.o Eye.o
+OBJECTS	= main.o Aquarium.o Milieu.o Bug.o BugFactory.o Ear.o Eye.o SensorFactory.o BehaviourFactory.o AccessoryFacade.o Fearful.o MultiPersona.o SuicideBoomer.o Social.o Careful.o Camouflage.o Shell.o Fin.o
 
 
 # make target
