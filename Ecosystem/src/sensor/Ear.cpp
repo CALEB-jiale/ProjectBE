@@ -57,9 +57,9 @@ bool Ear::isDetected(const Bug& bug) const {
     
     double myDistance = std::sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
     
-    if (myDistance < this->distance) {
-        return true;
+    if (myDistance >= this->distance) {
+        return false;
     }
     
-    return false;
+    return true;
 }

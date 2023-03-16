@@ -15,7 +15,10 @@ public:
     static double DETECT_CAPACITY_MAX;
     
     Eye(Bug* owner);
+    Eye(Bug* owner, double detectCapacity, double distance, double angle);
+    virtual Sensor* clone() const;
     virtual void draw(UImg& support) const;
+    virtual bool isDetected(const Bug& bug) const;
 };
 
 #endif
