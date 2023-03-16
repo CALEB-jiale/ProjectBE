@@ -1,57 +1,46 @@
-#include "Yeux.h"
-#include "../../include/LogUtil.h"
-#include "../bestiole/Bestiole.h"
-Yeux::Yeux(double distance_min, double distance_max, double champ_vision,
-           float capacite) {
-  this->distance_min = distance_min;
-  this->distance_max = distance_max;
-  this->champ_vision = champ_vision;
-  this->capacite_detection = capacite;
+#include <cmath>
+#include "Ear.h"
+#include "../bug/Bug.h"
+#include "../bug/BugFactory.h"
+#include "../../include/Random.h"
+
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
+
+double Eye::ANGLE_MIN = 0.2 * M_PI;
+double Eye::ANGLE_MAX = 1.8 * M_PI;
+double Eye::DISTANCE_MIN = 0.;
+double Eye::DISTANCE_MAX = 30.;
+double Eye::DETECT_CAPACITY_MIN = 20.;
+double Eye::DETECT_CAPACITY_MAX = 100.;
+
+Eye::Eye(Bug* owner) {
+    this->owner = owner;
+    this->detectCapacity = Random::get(Eye.DETECT_CAPACITY_MIN, Eye.DETECT_CAPACITY_MAX);
+    this->distance = Random::get(Eye.DISTANCE_MIN, Eye.DISTANCE_MAX);
+    this->angle = Random::get(Eye.ANGLE_MIN, Eye.ANGLE_MAX);
 }
 
-bool Yeux::JeTePercoit(int x, int y, double orientation,
-                       const Bestiole &b) const {
-  auto coordinates = b.getCoordinates();
-  auto bx = coordinates.first;
-  auto by = coordinates.second;
-  int dx = x - bx;
-  int dy = y - by;
+void Eye::draw(UImg &support) const {
+    T* color = new T[3];
+    color[0] = 100;
+    color[1] = 100;
+    color[2] = 100;
+    
+    double orientation = this->owner->getOrientation();
+    auto position = this->owner->getPosition();
+    int x = position.first;
+    int y = position.second;
+    
+    double x1 = x + std::cos(orientation)*BugFactory.SIZE/2.1;
+    double y1 = y - std::sin(orientation)*BugFactory.SIZE/2.1;
+    
+    double x2 = x1 + std::cos(orientation + this->angle / 2) * this->distance;
+    double y2 = y1 - std::sin(orientation + this->angle / 2) * this->distance;
 
-  // Angle returned as: (ref : https://stackoverflow.com/a/62486304/18059322)
-  //                      pi/2
-  //            3*pi/4                pi/4
-  //
-  //       pi          Origin           0
-  //
-  //           -3*pi/4                -pi/4
-  //
-  //                     -pi
-
-  double angle = std::atan2(dy, dx);
-  double dangle = angle - b.getOrientation();
-  double dist = std::sqrt((x - bx) * (x - bx) + (y - by) * (y - by));
-  return ((abs(dangle) < this->champ_vision / 2) &&
-          (dist <= this->distance_max) && (dist >= this->distance_min) &&
-          (this->capacite_detection > b.get_camouflage_coef()));
+    double x3 = x1 + std::cos(orientation - this->angle / 2) * this->distance;
+    double y3 = y1 - std::sin(orientation - this->angle / 2) * this->distance;
+    
+    support.draw_triangle(x1, y1, x2, y2, x3, y3, color, 0.2);
 }
 
-unique_ptr<ICapteur> Yeux::clone() const {
-  return unique_ptr<ICapteur>(new Yeux(this->distance_min, this->distance_max,
-                                       this->champ_vision,
-                                       this->capacite_detection));
-}
-
-void Yeux::draw(UImg &support, double xt, double yt, double orientation) {
-  T *couleur = new T[3];
-  couleur[0] = 223;
-  couleur[1] = 0;
-  couleur[2] = 0;
-
-  double xt2 = xt + champ_vision * std::cos(orientation / 2);
-  double yt2 = yt + champ_vision * std::sin(orientation / 2);
-
-  double xt3 = xt - champ_vision * std::cos(orientation / 2);
-  double yt3 = yt - champ_vision * std::sin(orientation / 2);
-
-  support.draw_triangle(xt, yt, xt2, yt2, xt3, yt3, couleur, 0.2);
-}

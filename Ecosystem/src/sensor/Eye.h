@@ -7,14 +7,14 @@ class Bug;
 
 class Eye : public Sensor {
 public:
-    static float ANGLE_MIN;
-    static float ANGLE_MAX;
-    static float DISTANCE_MIN;
-    static float DISTANCE_MAX;
-    static float DETECT_CAPACITY_MIN;
-    static float DETECT_CAPACITY_MAX;
+    static double ANGLE_MIN;
+    static double ANGLE_MAX;
+    static double DISTANCE_MIN;
+    static double DISTANCE_MAX;
+    static double DETECT_CAPACITY_MIN;
+    static double DETECT_CAPACITY_MAX;
     
-    Eye(Bug* owner, float detectCapacity, float distance, float angle);
+    Eye(Bug* owner);
     virtual void draw(UImg& support) const;
 };
 

@@ -8,16 +8,16 @@ class Bug;
 class Sensor {
 protected:
     Bug* owner;
-    float detectCapacity;
-    float angle;
-    float distance;
+    double detectCapacity;
+    double angle;
+    double distance;
 
 public:
     virtual Sensor() = 0;
     virtual ~Sensor() = 0;
+    virtual Sensor* clone() const = 0;
     virtual void draw(UImg& support) const = 0;
-    bool isDetected(const Bug& bug) const;
-    Sensor* clone() const override;
+    virtual bool isDetected(const Bug& bug) const = 0;
 };
 
 #endif

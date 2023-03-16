@@ -7,13 +7,16 @@ class Bug;
 
 class Ear : public Sensor {
 public:
-    static float DISTANCE_MIN;
-    static float DISTANCE_MAX;
-    static float DETECT_CAPACITY_MIN;
-    static float DETECT_CAPACITY_MAX;
+    static double DISTANCE_MIN;
+    static double DISTANCE_MAX;
+    static double DETECT_CAPACITY_MIN;
+    static double DETECT_CAPACITY_MAX;
     
     Ear(Bug* owner);
+    Ear(Bug* owner, double detectCapacity, double distance);
+    virtual Sensor* clone() const;
     virtual void draw(UImg& support) const;
+    virtual bool isDetected(const Bug& bug) const;
 };
 
 #endif
