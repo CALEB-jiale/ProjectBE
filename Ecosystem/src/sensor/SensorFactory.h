@@ -8,7 +8,7 @@ class SensorFactory {
 private:
     static SensorFactory* factory;
     SensorFactory();
-    SensorFactory(const SensorFactory &sensorFactory) = delete;
+    SensorFactory(const SensorFactory& sensorFactory) = delete;
     SensorFactory& operator=(const SensorFactory& sensorFactory) = delete;
 
 public:

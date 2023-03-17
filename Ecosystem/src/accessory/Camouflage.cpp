@@ -1,25 +1,14 @@
-#if !defined(_CAMOUFLAGE_H_)
-#define _CAMOUFLAGE_H_
+#include "Camouflage.h"
+#include "../bug/Bug.h"
+#include "../../include/Random.h"
 
-/* *
- * A bug with a camouflage will be more difficult to detect by other bugs.
- */
-class Camouflage
-{
-private:
-    /* the capacity of camouflage */
-    float prob_detecte;
-public:
-    /* the Camouflage constructor */
-    Camouflage(float prob_detecte);
-    /* the Camouflage destructor */
-    ~Camouflage();
+double FACTOR_CAMOUFLAGE_MIN = 0.1;
+double FACTOR_CAMOUFLAGE_MAX = 0.9;
 
-  /*
-   * Getters and Setters
-   */
-  void set_prob_detecte(float prob_detecte);
-  float get_prob_detecte();
-};
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 
-#endif // _CAMOUFLAGE_H_
+void Camouflage::updateParameters(Bug* bug) const {
+    double randomFactor = Random::get(Camouflage.FACTOR_CAMOUFLAGE_MIN, Camouflage.FACTOR_CAMOUFLAGE_MAX);
+    bug->updateCamouflageCapacity(randomFactor);
+}

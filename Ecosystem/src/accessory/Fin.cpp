@@ -1,31 +1,13 @@
-#if !defined(_NEGEOIRE_H_)
-#define _NEGEOIRE_H_
+#include "Fin.h"
+#include "../bug/Bug.h"
+#include "../../include/Random.h"
 
-#include"IAccessoire.h"
-/* *
- * A bug with a Negeoire will move faster.
- */
-class Negeoire : public virtual IAccessoire
-{
-private:
-    /* the multiplier coefficient of the speed*/
-    float coef_vitesse;
+double FACTOR_VELOCITY = 1.5;
 
-public:
-    /*
-     * the Negeoire constructor with coef_vitesse parameter
-     */
-    Negeoire(float coef_vitesse);
-    /*
-     * the Negeoire destructor
-     */
-    ~Negeoire();
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 
-    /*
-    * Getters and Setters for the coef_vitesse parameter
-    */
-    float get_coef_vitesse();
-    void set_coef_vitesse(float coef_vitesse);
-};
-
-#endif // _NEGEOIRE_H_
+void Fin::updateParameters(Bug* bug) const {
+    double randomFactor = Random::get(1, Fin.FACTOR_VELOCITY);
+    bug->updateVelocity(randomFactor);
+}

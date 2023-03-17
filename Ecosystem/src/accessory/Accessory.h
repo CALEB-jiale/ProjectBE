@@ -1,23 +1,12 @@
-#ifndef _IACCESSOIRE_H_
-#define _IACCESSOIRE_H_
+#ifndef _ACCESSORY_H_
+#define _ACCESSORY_H_
 
-using namespace std;
+class Bug;
 
-class Milieu; // ??? why not aquarium...
-/*
- * Interface of accessories
- */
-class IAccessoire
-{
-private:
-  /* coef */
+class Accessory {
 public:
-  virtual ~IAccessoire();
-
-  /*
-   * TODO : Accessoires don't have same coefficient
-   */
-  float get();
+    virtual ~Accessory() {};
+    virtual void updateParameters(Bug* bug) const = 0;
 };
 
 #endif

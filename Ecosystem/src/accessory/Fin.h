@@ -1,31 +1,14 @@
-#if !defined(_NEGEOIRE_H_)
-#define _NEGEOIRE_H_
+#ifndef _FIN_H_
+#define _FIN_H_
 
-#include"IAccessoire.h"
-/* *
- * A bug with a Negeoire will move faster.
- */
-class Negeoire : public virtual IAccessoire
-{
-private:
-    /* the multiplier coefficient of the speed*/
-    float coef_vitesse;
+#include "Accessory.h"
 
+class Bug;
+
+class Fin : public Accessory {
 public:
-    /*
-     * the Negeoire constructor with coef_vitesse parameter
-     */
-    Negeoire(float coef_vitesse);
-    /*
-     * the Negeoire destructor
-     */
-    ~Negeoire();
-
-    /*
-    * Getters and Setters for the coef_vitesse parameter
-    */
-    float get_coef_vitesse();
-    void set_coef_vitesse(float coef_vitesse);
+    static double FACTOR_VELOCITY;
+    virtual void updateParameters(Bug* bug) const override;
 };
 
-#endif // _NEGEOIRE_H_
+#endif
