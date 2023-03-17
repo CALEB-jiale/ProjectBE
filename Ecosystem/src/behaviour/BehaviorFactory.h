@@ -24,7 +24,7 @@ private:
 
 public:
     ~BehaviorFactory();
-    BehaviorFactory* getBehaviorFactory(Milieu* milieu);
+    static BehaviorFactory* getBehaviorFactory(Milieu* milieu);
     Behavior* getMultiPersona();
     Behavior* getFearful();
     Behavior* getSocial();
