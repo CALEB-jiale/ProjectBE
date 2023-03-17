@@ -1,5 +1,6 @@
 #include "Aquarium.h"
 #include "Milieu.h"
+#include "../bug/BugFactory.h"
 #include "../../include/Random.h"
 
 // get base random alias which is auto seeded and has static API and internal state

@@ -5,6 +5,7 @@
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
+using namespace std;
 
 AccessoryFacade* AccessoryFacade::facade = nullptr;
 

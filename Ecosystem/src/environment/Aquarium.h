@@ -1,15 +1,13 @@
 #ifndef _AQUARIUM_H_
 #define _AQUARIUM_H_
 
-#include <iostream>
 #include <CImg.h>
 
-using namespace std;
 using namespace cimg_library;
 
 
 class Milieu;
-
+class BugFactory;
 
 class Aquarium : public CImgDisplay {
 private:
