@@ -1,9 +1,15 @@
 #include "Aquarium.h"
 #include "Milieu.h"
+#include "../../include/Random.h"
+
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 
 Aquarium::Aquarium(int width, int height, int _delay) : CImgDisplay(), delay(_delay) {
     int screenWidth = 1280; //screen_width();
     int screenHeight = 1024; //screen_height();
+    
+    bugFunction = BugFunction.getBugFunction();
     
     cout << "const Aquarium" << endl;
 
@@ -19,7 +25,27 @@ Aquarium::~Aquarium() {
 }
 
 void Aquarium::addBug(int token){
+    if(token == 0) {
+        token = Random::get(1, 5);
+    }
     
+    switch(token) {
+        case 1:
+            milieu->addBug(*(bugFunction->getMultiPersona()))
+            break;
+        case 2:
+            milieu->addBug(*(bugFunction->getFearful()))
+            break;
+        case 3:
+            milieu->addBug(*(bugFunction->getSuicideBoomer()))
+            break;
+        case 4:
+            milieu->addBug(*(bugFunction->getSocial()))
+            break;
+        case 5:
+            milieu->addBug(*(bugFunction->getCareful()))
+            break;
+    }
 }
 
 void Aquarium::run() {
