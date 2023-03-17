@@ -1,47 +1,45 @@
 #ifndef _MILIEU_H_
 #define _MILIEU_H_
 
-#include "../../include/HMI/UImg.h"
-#include "../bestiole/Bestiole.h"
-#include "../constants.h"
+
+#include "UImg.h"
+#include "Bestiole.h"
 
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <cmath>
 
-class BestiolFactory;
 
-class Milieu : public UImg {
+using namespace std;
 
-private:
-  static const T white[];
 
-  int width, height;
-  std::vector<Bestiole> listeBestioles;
+class Milieu : public UImg
+{
 
-  BestiolFactory *bestioleFac;
-
-  void show_collision(Bestiole &b);
-  void show_statistic_info();
-
+private :
+      static const T          white[];
+      int width, length;
+      std::vector<std::shared_ptr<Bug>>   listBugs;
 public:
-  int num_death = 0;
-  int num_collision = 0;
+      Milieu(int w, int l);
+      ~Milieu();
+      void step();
+      void cloning();
+      void removeDeadBugs();
+      void addBug();
+      void addBug(Bug* b);
+      void addBug(std::vector<std::shared_ptr<Bug>>  clonedBugs);
+      std::vector<std::shared_ptr<Bug>> getNeighbors(Bug* b);
+      Bug* getBugById(int id);
 
+      // getters 
+      int getWidth();
+      int getLength();
 
-  Milieu(int _width, int _height);
-  ~Milieu(void);
+ 
 
-  int getWidth(void) const { return width; };
-  int getHeight(void) const { return (height - INFO_BAR_HEIGHT) ;};
-
-  void step(void);
-
-  void addMember(const Bestiole &b) { listeBestioles.push_back(b); }
-  std::vector<Bestiole const *> getVoisins(const Bestiole &b) const;
-  int nbVoisins(const Bestiole &b) const;
-  void handleCollision(Bestiole &b);
-
-  void setBestioleFactory(BestiolFactory *bf);
 };
+
 
 #endif
