@@ -14,12 +14,12 @@
 MultiPersona::MultiPersona(const Milieu *milieu, Behavior** behaviors) {
     this->milieu=milieu;
     for (auto b : behaviors) {
-        this->behaviors.push_back(b)
+        this->behaviors.push_back(b);
     }
     LOG_DEBUG("Create MultiPersona behavior operand")
 }
 
-MultiPersona::~MultiPersona() { LOG_DEBUG("Destroy MultiPersona behavior operand"); }
+MultiPersona::~MultiPersona() { LOG_DEBUG("Destroy MultiPersona behavior operand") }
 
 void MultiPersona::updateParameters(Bug* bug) {
     auto random_number = (rand() % behaviors.size());
