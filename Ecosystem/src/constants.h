@@ -9,6 +9,6 @@
 #define MILIEU_HEIGHT 480
 #define INFO_BAR_HEIGHT 220
 
-#define INIT_BESTIOLE_NUM 30
+#define INIT_BUG_NUM 30
 
 #endif

@@ -11,11 +11,9 @@
 class Behavior {
 protected:
     Milieu* milieu;
-    Behavior(const Milieu* milieu) { this->milieu = milieu; };
 
 public:
-    virtual ~Behavior() = default;
-
+    virtual ~Behavior(){};
     virtual void updateParameters(Bestiole* bug) = 0;
 };
 
