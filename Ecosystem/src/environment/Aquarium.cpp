@@ -1,108 +1,57 @@
 #include "Aquarium.h"
 #include "Milieu.h"
-//#include "behavior/Prudent.h"
-//#include "behavior/Craintif.h"
-//#include "behavior/SuicideBoomber.h"
-//#include "behavior/Social.h"
-//#include "behavior/MultiplePersona.h"
 
+Aquarium::Aquarium(int width, int height, int _delay) : CImgDisplay(), delay(_delay) {
+    int screenWidth = 1280; //screen_width();
+    int screenHeight = 1024; //screen_height();
+    
+    cout << "const Aquarium" << endl;
 
-Aquarium::Aquarium(int width, int length) : CImgDisplay(){
-   int         screenWidth = 1280; //screen_width();
-    int         screenHeight = 1024; //screen_height();
-   mil = new Milieu(width, length);
-   cout << "Construct Aquarium" << endl;
-   assign( *mil, "Ecosystem Simulation" );
+    milieu = new Milieu(width, height);
+    assign(*milieu, "Simulation d'ecosysteme");
 
-   move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-length)/2) );
+    move(static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2));
 }
 
-Aquarium::~Aquarium(){
+Aquarium::~Aquarium() {
    cout << "Destruct Aquarium" << endl;
-   delete mil;
+   delete milieu;
 }
 
-void Aquarium::birth(){
-   mil->addBug();
+void Aquarium::addBug(int token){
+    
 }
 
-void Aquarium::clone(int id){
-  Bug* copy = mil->getBugById(id)->clone();
-   mil->addBug(copy);
-}
+void Aquarium::run() {
+    cout << "running Aquarium" << endl;
 
-void Aquarium::kill(int id){
-   mil->getBugrById(id)->dead();
-}
+    while (!is_closed()) {
+        if ( is_key() ) {
+            cout << "You have pressed the key " << static_cast<unsigned char>( key() );
+            cout << " (" << key() << ")" << endl;
+            
+            if (is_keyESC()) {
+                close();
+            } else if (is_keyA()) {
+                addBug(0);
+            } else if (is_keyM()) {
+                addBug(1);
+            } else if (is_keyF()) {
+                addBug(2);
+            } else if (is_keyB()) {
+                addBug(3);
+            } else if (is_keyS()) {
+                addBug(4);
+            } else if (is_keyC()) {
+                addBug(5);
+            } else if (is_keyK()) {
+                milieu->kill();
+            }
+        }
 
-/*void Aquarium::setBehavior(int id, string const & behavior){
-   //delete mil->getBugById(id)->getBehavior();
-   if(behavior.compare("c")==0){
-      mil->getBugById(id)->setBehavior(new Prudent());
-   }
-   else if(behavior.compare("f")==0){
-      mil->getBugById(id)->setBehavior(new Craintif());
-   }
-   else if(behavior.compare("g")==0){
-      mil->getBugById(id)->setBehavior(new Social());
-   }
-   else if(behavior.compare("k")==0){
-      mil->getBugById(id)->setBehavior(new SuicideBoomber());
-   }
-   else{
-      mil->getBugById(id)->setBehavior(new MultiplePersona());
-   }
-   
-}
-*/
-void Aquarium::run(){
-   cout << "running Aquarium" << endl;
+        milieu->step();
+        display(*milieu);
 
-   while ( ! is_closed() )
-   {
-
-      if (is_key(cimg::keyB)){
-
-         birth(); 
-
-      }
-
-      if (is_key(cimg::keyK)){
-         int id;
-         cout << "which Bug do you want to kill? ?"<<endl;
-         cin>>id;
-         this->kill(id);
-      }
-
-      if (is_key(cimg::keyC)){
-         int id;
-         cout << "which Bug do you want to clone? ?"<<endl;
-         cin>>id;
-         this->clone(id);
-
-      }
-
-      if (is_key(cimg::keyS)){
-         int id;
-         std::string behavior;
-         cout << "Which Bug do you want to modify the behavior of?"<<endl;
-         cin >> id;
-         cout << "What Bug do you want to attribute to it?"<<endl;
-         cin >> behavior;
-         setBehavior(id,behavior);
-      }
-
-
-
-      if (is_keyESC()) {
-         close();
-      }
-
-     
-      mil->step();
-      display( *mil );
-
-      wait( 300 );
-
-   } 
+        wait(delay);
+    }
 }

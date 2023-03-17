@@ -1,7 +1,6 @@
 #ifndef _AQUARIUM_H_
 #define _AQUARIUM_H_
 
-
 #include <iostream>
 #include <CImg.h>
 
@@ -12,21 +11,16 @@ using namespace cimg_library;
 class Milieu;
 
 
-class Aquarium : public CImgDisplay
-{
-
-
+class Aquarium : public CImgDisplay {
 private:
-    Milieu* mil;
+    Milieu* milieu;
+    BugFactory* bugFactory;
 public:
-    Aquarium(int width, int length);
+    Aquarium(int width, int length, int delay);
     ~Aquarium();
-    void birth();
-    void kill(int id);
-    void clone(int id);
-    void setBehavior(int id, string const &  behavior);
+    Milieu* getMilieu() { return milieu; }
     void run();
+    void addBug(int token);
 };
-
 
 #endif
