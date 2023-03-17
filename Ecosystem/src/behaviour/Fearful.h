@@ -6,8 +6,8 @@
 #define PROJECTBE_FEARFUL_H
 
 #include "Behavior.h"
-#include "../Bestiole.h"
-#include "../Milieu.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
 
 class Fearful : public Behavior {
 public:

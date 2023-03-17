@@ -6,7 +6,8 @@
 #define PROJECTBE_SOCIAL_H
 
 #include "Behavior.h"
-#include "../Bestiole.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
 
 
 class Social : public Behavior {

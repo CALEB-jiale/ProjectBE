@@ -6,7 +6,8 @@
 #define PROJECTBE_MULTIPERSONNA_H
 
 #include "Behavior.h"
-#include "../Bestiole.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
 #include <vector>
 
 

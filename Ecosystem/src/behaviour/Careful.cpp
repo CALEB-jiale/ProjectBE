@@ -3,13 +3,17 @@
 //
 
 #include "Careful.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
+#include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-Careful::Careful(const Milieu *milieu) : Behavior(milieu) {
+Careful::Careful(const Milieu *milieu) {
+    this->milieu=milieu;
     LOG_DEBUG("Create Careful behavior operand");
 }
 

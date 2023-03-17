@@ -3,14 +3,20 @@
 //
 
 #include "Social.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
+#include "../../include/LogUtil.h"
+#include <cmath>
+#include <vector>
 
 using namespace std;
 
 Social::Social(const Milieu *milieu) : Behavior(milieu) {
-    LOG_DEBUG("Create Social behavior operand");
+    this->milieu=milieu;
+    LOG_DEBUG("Create Social behavior operand")
 }
 
-Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
+Social::~Social() { LOG_DEBUG("Destroy Social behavior operand") }
 
 void Social::updateParameters(Bestiole *bug) {
     vector<Bestiole const*> const neighbors = milieu.getNeighbors(bug);

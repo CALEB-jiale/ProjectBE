@@ -3,6 +3,9 @@
 //
 
 #include "SuicideBoomer.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
+#include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -10,10 +13,11 @@
 using namespace std;
 
 SuicideBoomer::SuicideBoomer(const Milieu *milieu) : Behavior(milieu) {
-    LOG_DEBUG("Create SuicideBoomer behavior operand");
+    this->milieu=milieu;
+    LOG_DEBUG("Create SuicideBoomer behavior operand")
 }
 
-SuicideBoomer::~SuicideBoomer() { LOG_DEBUG("Destroy SuicideBoomer behavior operand"); }
+SuicideBoomer::~SuicideBoomer() { LOG_DEBUG("Destroy SuicideBoomer behavior operand") }
 
 void SuicideBoomer::updateParameters(Bestiole *bug) {
     double distance_min = static_cast<double>(INFINITY);

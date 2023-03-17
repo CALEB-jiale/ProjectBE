@@ -3,7 +3,8 @@
 //
 
 #include "Fearful.h"
-#include "../Bestiole.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
 #include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
@@ -11,7 +12,8 @@
 
 using namespace std;
 
-Fearful::Fearful(const Milieu* milieu) : Behavior(milieu){
+Fearful::Fearful(const Milieu* milieu) {
+    this->milieu=milieu;
     LOG_DEBUG("Create fearful behavior operand");
 }
 

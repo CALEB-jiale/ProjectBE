@@ -5,7 +5,8 @@
 #ifndef PROJECTBE_BEHAVIOR_H
 #define
 
-#include "../Bestiole.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
 
 
 class Behavior {
