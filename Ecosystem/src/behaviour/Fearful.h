@@ -1,28 +1,22 @@
 //
-// Created by Lenovo on 2022/11/25.
+// Created by Franck XU on 16/03/2023.
 //
 
-#ifndef ECOSYSTEM_SIMULATION_PEUREUSE_H
-#define ECOSYSTEM_SIMULATION_PEUREUSE_H
+#ifndef PROJECTBE_FEARFUL_H
+#define PROJECTBE_FEARFUL_H
 
-#include "IComportement.h"
-#include <string>
+#include "Behavior.h"
+#include "../Bestiole.h"
+#include "../Milieu.h"
 
-class Peureuse : public IComportement {
-
+class Fearful : public Behavior {
 public:
-  Peureuse();
-
-  ~Peureuse() override;
-
-  Couleur get_color() const override { return {0, 0, 255}; }
-  std::string get_name() const override {return "Peureuse";}
-
-  void move(Bestiole &b,
-            std::vector<Bestiole const *> const &seen_neighbors) override;
-  std::unique_ptr<IComportement> clone() const override;
-
-private:
-  bool fleeing = false;
+    FearFul(const Milieu* milieu);
+    ~Fearful() override;
+    void updateParameters(Bestiole* bug) override;
+    Fearful(const Fearful&) = delete;
+    Feaful& operator=(const Feaful&) = delete;
 };
-#endif // ECOSYSTEM_SIMULATION_PEUREUSE_H
+
+
+#endif //PROJECTBE_FEARFUL_H

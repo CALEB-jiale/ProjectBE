@@ -1,52 +1,50 @@
-#include "Prevoyante.h"
-#include "../bestiole/Bestiole.h"
+//
+// Created by Franck XU on 16/03/2023.
+//
+
+#include "Careful.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-Prevoyante::Prevoyante() { cout << "Create prevoyante behavior" << endl; }
-
-Prevoyante::~Prevoyante() { cout << "Destroy prevoyante behavior" << endl; }
-
-void Prevoyante::move(Bestiole &b,
-                      vector<Bestiole const *> const &seen_neighbors) {
-
-  // This method isn't finished.
-  return;
-
-  auto b_ori = b.getOrientation();
-  auto b_vitesse = b.get_vitesse();
-  auto b_coord = b.getCoordinates();
-  double distance_min = static_cast<double>(INFINITY);
-  Bestiole const* closest_neighbor = nullptr;
-  if (seen_neighbors.empty()) {
-    b.setVitesse(0.6 * b.get_max_vitesse());
-    b.setOrientation(b_ori);
-  }
-  for (auto neighbor : seen_neighbors) {
-    auto neighbor_ori = neighbor->getOrientation();
-    auto neighbor_coord = neighbor->getCoordinates();
-    auto neighbor_vitesse = neighbor->get_vitesse();
-    // next round distance
-    auto next_distance_x = neighbor_coord.first +
-                           neighbor_vitesse * cos(neighbor_ori) -
-                           b_coord.first + b_vitesse * cos(b_ori);
-    auto next_distance_y = neighbor_coord.second +
-                           neighbor_vitesse * sin(neighbor_ori) -
-                           b_coord.second + b_vitesse * sin(b_ori);
-    auto next_distance = sqrt(next_distance_x * next_distance_x +
-                              next_distance_y * next_distance_y);
-    if (next_distance < distance_min) {
-      distance_min = next_distance;
-      closest_neighbor = neighbor;
-    }
-  }
-  if (closest_neighbor) {
-    b.setOrientation(b_ori + M_PI);
-  }
+Careful::Careful(const Milieu *milieu) : Behavior(milieu) {
+    LOG_DEBUG("Create Careful behavior operand");
 }
 
-unique_ptr<IComportement> Prevoyante::clone() const {
-  return unique_ptr<IComportement>(new Prevoyante());
+Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
+
+void Careful::updateParameters(Bestiole *bug) {
+    double distance_min = static_cast<double>(INFINITY);
+
+    auto bug_velocity = bug.getCurrentVelocity();
+    auto bug_orientation = bug.getOrientation();
+    auto bug_pos = bug.getPosition();
+    auto bug_x_esti = bug_pos.first + bug_velocity * cos(bug_orientation);
+    auto bug_y_esti = bug_pos.second + bug_velocity * sin(bug_orientation);
+
+    Bestiole const* closest_neighbor = nullptr;
+    double distance_min = static_cast<double>(INFINITY);
+
+    vector<Bestiole const*> const neighbors = milieu.getNeighbors(bug);
+    for (auto neighbor : neighbors) {
+        auto velocity = neighbor.getCurrentVelocity();
+        auto orientation = neighbor.getOrientation();
+        auto neighbor_coord = neighbor.getPosition();
+
+        auto neighbor_x_esti = neighbor_coord.first + velocity * cos(orientation) ;
+        auto neighbor_y_esti = neighbor_coord.second + velocity * sin(orientation);
+
+        double diff_distance = pow(neighbor_x_esti - bug_x_esti, 2) + pow(neighbor_y_esti - bug_y_esti);
+
+        if (diff_distance < distance_min) {
+            distance_min = diff_distance;
+            closest_neighbor = neighbor;
+        }
+    }
+
+    if (closest_neighbor) {
+        bug.setOrientation(closest_neighbor.getOrientation() + M_PI)
+    }
 }

@@ -1,32 +1,22 @@
 //
-// Created by Lenovo on 2022/11/25.
+// Created by Franck XU on 16/03/2023.
 //
 
-#ifndef ECOSYSTEM_SIMULATION_GRAGAIRE_H
-#define ECOSYSTEM_SIMULATION_GRAGAIRE_H
+#ifndef PROJECTBE_SOCIAL_H
+#define PROJECTBE_SOCIAL_H
 
-#include "IComportement.h"
-#include <string>
+#include "Behavior.h"
+#include "../Bestiole.h"
 
-class Gragaire : public IComportement {
 
+class Social : public Behavior {
 public:
-  Gragaire(void);
-
-  ~Gragaire() override;
-
-  void move(Bestiole &b,
-            std::vector<Bestiole const *> const &seen_neighbors) override;
-
-  Couleur get_color() const override { return {255, 165, 0}; }
-
-  std::string get_name() const override {return "Gragaire";}
-
-  std::unique_ptr<IComportement> clone() const override;
-
-private:
-  double calculateAverageDirection(
-      double my_orientation,
-      std::vector<Bestiole const *> const &seen_neighbors);
+    Social(const Milieu* milieu);
+    ~Social() override;
+    void updateParameters(Bestiole* bug) override;
+    Social(const Social&) = delete;
+    Social& operator=(const Social&) = delete;
 };
-#endif // ECOSYSTEM_SIMULATION_GRAGAIRE_H
+
+
+#endif //PROJECTBE_SOCIAL_H

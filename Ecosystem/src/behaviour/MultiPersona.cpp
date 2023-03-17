@@ -1,45 +1,15 @@
-#include "Multiple.h"
-#include "Gragaire.h"
-#include "Kamikaze.h"
-#include "Peureuse.h"
-#include "Prevoyante.h"
+//
+// Created by Franck XU on 16/03/2023.
+//
+
+#include "MultiPersona.h"
+#include <cmath>
 #include <iostream>
-#include <random>
-using namespace std;
+#include <vector>
 
-Multiple::Multiple() : currentComportement(updateComportement()) {
-  cout << "Create multiple behavior" << endl;
+SuicideBoomer::SuicideBoomer(const Milieu *milieu, Behavior** behaviors) : Behavior(milieu), behaviors{
+    LOG_DEBUG("Create SuicideBoomer behavior operand");
 }
 
-Multiple::~Multiple() { cout << "Destroy multiple behavior" << endl; }
+SuicideBoomer::~SuicideBoomer() { LOG_DEBUG("Destroy SuicideBoomer behavior operand"); }
 
-std::unique_ptr<IComportement> Multiple::updateComportement() const {
-  std::random_device
-      rd; // Will be used to obtain a seed for the random number engine
-  std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-  std::uniform_int_distribution<> dis(0, 2);
-  switch (dis(gen)) {
-  case 0:
-    return unique_ptr<Gragaire>(new Gragaire());
-  case 1:
-    return unique_ptr<Peureuse>(new Peureuse());
-  case 2:
-    return unique_ptr<Kamikaze>(new Kamikaze());
-  case 3:
-    return unique_ptr<Prevoyante>(new Prevoyante());
-  default:
-    throw std::runtime_error{"Should not reach there"};
-  }
-
-  return nullptr;
-}
-
-void Multiple::move(Bestiole &b,
-                    vector<Bestiole const *> const &seen_neighbors) {
-  if (stepsSinceLastComportementChange++ > 100) {
-    stepsSinceLastComportementChange = 0;
-    currentComportement = updateComportement();
-  }
-
-  return currentComportement->move(b, seen_neighbors);
-}

@@ -1,40 +1,29 @@
 //
-// Created by Lenovo on 2022/11/25.
+// Created by Franck XU on 16/03/2023.
 //
 
-#include "Peureuse.h"
+#include "Fearful.h"
+#include "../Bestiole.h"
 #include "../../include/LogUtil.h"
-#include "../bestiole/Bestiole.h"
-#include "../constants.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-Peureuse::Peureuse() { LOG_DEBUG("Create peureuse behavior"); }
-
-Peureuse::~Peureuse() { LOG_DEBUG("Destroy peureuse behavior"); }
-
-/*
- * the bug adjusts his direction to the opposite and adjusts his speed to the
- * maximum when the number of his neighbor are more than 2.
- */
-void Peureuse::move(Bestiole &b,
-                    vector<Bestiole const *> const &seen_neighbors) {
-  int neighbor_number = seen_neighbors.size();
-  auto orientation = b.getOrientation();
-  auto should_flee = neighbor_number > 2;
-  if (fleeing && !should_flee) {
-    fleeing = false;
-    b.setVitesse(b.get_max_vitesse() / 2);
-  } else if (!fleeing && should_flee) {
-    fleeing = true;
-    b.setOrientation(orientation + M_PI);
-    b.setVitesse(b.get_max_vitesse());
-  }
+Fearful::Fearful(const Milieu* milieu) : Behavior(milieu){
+    LOG_DEBUG("Create fearful behavior operand");
 }
 
-unique_ptr<IComportement> Peureuse::clone() const {
-  return unique_ptr<IComportement>(new Peureuse());
+Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
+
+void Fearful::updateParameters(const Bestiole *bug) {
+    vector<Bug const *> &neighbors = milieu.getNeighbors(bug);
+    int num_neighbor = neighbors.size();
+    if (num_neighbor > 2) {
+        b.switchToFastVelocity();
+        b.setOrientation(b.getOrientation() + M_PI);
+    } else {
+        b.switchToNormalVelocity();
+    }
 }

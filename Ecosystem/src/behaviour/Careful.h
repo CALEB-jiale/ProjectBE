@@ -1,20 +1,22 @@
-#ifndef PREVOYANTE
-#define PREVOYANTE
-#include "IComportement.h"
-#include <string>
-using namespace std;
-class Prevoyante : public IComportement {
+//
+// Created by Franck XU on 16/03/2023.
+//
 
+#ifndef PROJECTBE_CAREFUL_H
+#define PROJECTBE_CAREFUL_H
+
+#include "Behavior.h"
+#include "../Bestiole.h"
+
+
+class Careful : public Behavior {
 public:
-  Prevoyante();
-
-  ~Prevoyante() override;
-  void move(Bestiole &b,
-            std::vector<Bestiole const *> const &seen_neighbors) override;
-
-  std::string get_name() const override {return "Prevoyante";}
-
-  Couleur get_color() const override { return {0, 255, 0}; }
-  std::unique_ptr<IComportement> clone() const override;
+    Careful(const Milieu* milieu);
+    ~Careful() override;
+    void updateParameters(Bestiole* bug) override;
+    Careful(const Careful&) = delete;
+    Careful& operator=(const Careful&) = delete;
 };
-#endif
+
+
+#endif //PROJECTBE_CAREFUL_H

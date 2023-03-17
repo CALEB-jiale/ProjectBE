@@ -1,64 +1,47 @@
-#include "Kamikaze.h"
-#include "../../include/LogUtil.h"
-#include "../bestiole/Bestiole.h"
+//
+// Created by Franck XU on 16/03/2023.
+//
 
+#include "SuicideBoomer.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-Kamikaze::Kamikaze() { LOG_DEBUG("Create a kamikaze behavior par default"); }
-Kamikaze::~Kamikaze() {
-  LOG_DEBUG("Destroying a kamikaze behavior par default");
-}
-/*
- * the bug adjusts its direction to its nearest neighbor.
- */
-void Kamikaze::move(Bestiole &b,
-                    vector<Bestiole const *> const &seen_neighbors) {
-  auto attractedNeighbor = getAttractedNeighbor(b, seen_neighbors);
-  if (!attractedNeighbor) {
-    b.setVitesse(3);
-    return;
-  }
-  auto directionX =
-      attractedNeighbor->getCoordinates().first - b.getCoordinates().first;
-  auto directionY =
-      attractedNeighbor->getCoordinates().second - b.getCoordinates().second;
-  auto distance = sqrt(directionX * directionX + directionY * directionY);
-  auto newDirection = atan2(-directionY, directionX);
-  auto direction = b.getOrientation();
-  direction -= sin(direction - newDirection) * 0.1;
-  b.setOrientation(direction);
-  b.setVitesse(max(1 + distance * 0.1, b.get_max_vitesse()));
-}
-/*
- * calculate the distance between the bug and its neighbors and return the
- * nearest bug
- */
-Bestiole const *
-Kamikaze::getAttractedNeighbor(const Bestiole &b,
-                               vector<Bestiole const *> const &seen_neighbors) {
-  if (seen_neighbors.empty()) {
-    return nullptr;
-  }
-  vector<double> distances;
-  for (auto neighbor : seen_neighbors) {
-    double dis =
-        (neighbor->getCoordinates().first - b.getCoordinates().first) *
-            (neighbor->getCoordinates().first - b.getCoordinates().first) +
-        ((neighbor->getCoordinates().second - b.getCoordinates().second)) *
-            ((neighbor->getCoordinates().second - b.getCoordinates().second));
-    dis = sqrt(dis);
-    distances.push_back(dis);
-  }
-  int indexOfAttractedNeighbor =
-      min_element(begin(distances), end(distances)) - begin(distances);
-  auto attractedNeighbor = seen_neighbors[indexOfAttractedNeighbor];
-  return attractedNeighbor;
+SuicideBoomer::SuicideBoomer(const Milieu *milieu) : Behavior(milieu) {
+    LOG_DEBUG("Create SuicideBoomer behavior operand");
 }
 
-unique_ptr<IComportement> Kamikaze::clone() const {
-  return unique_ptr<IComportement>(new Kamikaze());
+SuicideBoomer::~SuicideBoomer() { LOG_DEBUG("Destroy SuicideBoomer behavior operand"); }
+
+void SuicideBoomer::updateParameters(Bestiole *bug) {
+    double distance_min = static_cast<double>(INFINITY);
+
+    auto bug_pos = bug.getPosition();
+    auto bug_x = bug_pos.first;
+    auto bug_y= bug_pos.second;
+
+    int closest_neighbor_x;
+    int closest_neighbor_y;
+    double distance_min = static_cast<double>(INFINITY);
+
+    vector<Bestiole const*> const neighbors = milieu.getNeighbors(bug);
+    for (auto neighbor : neighbors) {
+        auto neighbor_coord = neighbor.getPosition();
+        auto neighbor_x = neighbor_coord.first;
+        auto neighbor_y = neighbor_coord.second;
+
+        double diff_distance = pow(neighbor_x - bug_x, 2) + pow(neighbor_y - bug_y);
+
+        if (diff_distance < distance_min) {
+            distance_min = diff_distance;
+            closest_neighbor_x = neighbor_x;
+            closest_neighbor_y = neighbor_y;
+        }
+    }
+
+    if (closest_neighbor) {
+        bug.setOrientation(atan2(closest_neighbor_y, closest_neighbor_x))
+    }
 }
-// namespace std;
