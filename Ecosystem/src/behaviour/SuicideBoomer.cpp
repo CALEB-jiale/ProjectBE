@@ -2,13 +2,16 @@
 // Created by Franck XU on 16/03/2023.
 //
 
+#include <cmath>
+#include <iostream>
+#include <limits>
+#include <vector>
+
 #include "SuicideBoomer.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
 #include "../../include/LogUtil.h"
-#include <cmath>
-#include <iostream>
-#include <vector>
+#include "UImg.h"
 
 using namespace std;
 
@@ -22,17 +25,18 @@ SuicideBoomer::~SuicideBoomer() {
 }
 
 void SuicideBoomer::updateParameters(Bug *bug) {
-    double distance_min = static_cast<double>(INFINITY);
-
+    T color[3] = {(T)255, (T)0, (T)0};
+    bug->setColor(color);
+    
     auto bug_pos = bug->getPosition();
     auto bug_x = bug_pos.first;
     auto bug_y = bug_pos.second;
 
     int closest_neighbor_x;
     int closest_neighbor_y;
-    double closest_distance = static_cast<double>(INFINITY);
+    double closest_distance = std::numeric_limits<double>::infinity();
 
-    vector<Bug const*> const neighbors = milieu.getNeighbors(*bug);
+    vector<Bug const*> const neighbors = milieu->getNeighbors(*bug);
     for (auto neighbor : neighbors) {
         auto neighbor_coord = neighbor->getPosition();
         auto neighbor_x = neighbor_coord.first;
@@ -47,7 +51,7 @@ void SuicideBoomer::updateParameters(Bug *bug) {
         }
     }
 
-    if (closest_distance < static_cast<double>(INFINITY)) {
+    if (closest_distance < std::numeric_limits<double>::infinity()) {
         double orientation = atan2(closest_neighbor_y - bug_y, closest_neighbor_x - bug_x);
         bug->setOrientation(orientation);
     }
