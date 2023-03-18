@@ -8,11 +8,13 @@
 #include "../../include/LogUtil.h"
 #include <cmath>
 #include <vector>
+#include <string>
 
 using namespace std;
 
-Social::Social(const Milieu *milieu) : Behavior(milieu) {
-    this->milieu=milieu;
+Social::Social(const Milieu* milieu, const string name) {
+    this->milieu = milieu;
+    this->name = name;
     LOG_DEBUG("Create Social behavior operand");
 }
 

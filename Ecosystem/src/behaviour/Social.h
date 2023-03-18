@@ -8,11 +8,12 @@
 #include "Behavior.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
+#include <string>
 
 
 class Social : public Behavior {
 public:
-    Social(const Milieu* milieu);
+    Social(const Milieu* milieu, const string name);
     ~Social() override;
     void updateParameters(Bug* bug) override;
     Social(const Social&) = delete;

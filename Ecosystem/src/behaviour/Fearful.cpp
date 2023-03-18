@@ -9,11 +9,13 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
-Fearful::Fearful(const Milieu* milieu) {
+Fearful::Fearful(const Milieu* milieu, const string name) {
     this->milieu=milieu;
+    this->name = name;
     LOG_DEBUG("Create fearful behavior operand");
 }
 

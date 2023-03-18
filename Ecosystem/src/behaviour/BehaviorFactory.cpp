@@ -16,11 +16,12 @@
 using namespace std;
 
 BehaviorFactory::BehaviorFactory(milieu *milieu) {
-    behaviors[carefull] = new Careful(milieu);
-    behaviors[fearful] = new Fearful(milieu);
-    behaviors[multipersona] = new MultiPersona(milieu);
-    behaviors[social] = new Social(milieu);
-    behaviors[suicideboomer] = new SuicideBoomer(milieu);
+    behaviors[carefull] = new Careful(milieu, carefull);
+    behaviors[fearful] = new Fearful(milieu, fearful);
+    behaviors[social] = new Social(milieu, social);
+    behaviors[suicideboomer] = new SuicideBoomer(milieu, suicideboomer);
+
+    behaviors[multipersona] = new MultiPersona(milieu, multipersona, behaviors);
     LOG_DEBUG("Create Behavior Factory");
 }
 

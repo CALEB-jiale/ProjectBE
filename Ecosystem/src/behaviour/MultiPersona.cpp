@@ -10,11 +10,14 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <string>
+#include <map>
 
-MultiPersona::MultiPersona(const Milieu *milieu, Behavior** behaviors) {
+MultiPersona::MultiPersona(const Milieu* milieu, const string name, std::map<string, Behavior*> &behaviors) {
     this->milieu=milieu;
+    this->name = name;
     for (auto b : behaviors) {
-        this->behaviors.push_back(b);
+        this->behaviors.push_back(b.second);
     }
     LOG_DEBUG("Create MultiPersona behavior operand");
 }

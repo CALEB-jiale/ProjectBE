@@ -13,11 +13,11 @@
 class BehaviorFactory {
 private:
     static BehaviorFactory* factor = nullptr;
-    static const string carefull = "carefull";
-    static const string fearful = "fearful";
-    static const string multipersona = "multipersona";
-    static const string social = "social";
-    static const string suicideboomer = "suicideboomer";
+    static const string carefull = "Carefull";
+    static const string fearful = "Fearful";
+    static const string multipersona = "MultiPersona";
+    static const string social = "Social";
+    static const string suicideboomer = "SuicideBoomer";
 
     std::map<string, Behavior*> behaviors;
     BehaviorFactory(Milieu* milieu);

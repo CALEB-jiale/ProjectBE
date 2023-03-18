@@ -8,11 +8,12 @@
 #include "Behavior.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
+#include <string>
 
 
-class SuicideBoomer : public Behaviour {
+class SuicideBoomer : public Behavior {
 public:
-    SuicideBoomer(const Milieu* milieu);
+    SuicideBoomer(const Milieu* milieu, const string name);
     ~SuicideBoomer() override;
     void updateParameters(Bug* bug) override;
     SuicideBoomer(const SuicideBoomer&) = delete;

@@ -9,11 +9,13 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
-SuicideBoomer::SuicideBoomer(const Milieu *milieu) : Behavior(milieu) {
+SuicideBoomer::SuicideBoomer(const Milieu* milieu, const string name) : Behavior(milieu) {
     this->milieu=milieu;
+    this->name = name;
     LOG_DEBUG("Create SuicideBoomer behavior operand");
 }
 

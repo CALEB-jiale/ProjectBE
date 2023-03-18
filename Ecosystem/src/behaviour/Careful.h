@@ -8,11 +8,11 @@
 #include "Behavior.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-
+#include <string>
 
 class Careful : public Behavior {
 public:
-    Careful(const Milieu* milieu);
+    Careful(const Milieu* milieu, const string name);
     ~Careful() override;
     void updateParameters(Bug* bug) override;
     Careful(const Careful&) = delete;

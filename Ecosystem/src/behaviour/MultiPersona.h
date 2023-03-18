@@ -9,12 +9,13 @@
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
 #include <vector>
+#include <string>
+#include <map>
 
-
-class MultiPersona : public Behaviour {
+class MultiPersona : public Behavior {
     std::vector<Behavior*> behaviors;
 public:
-    MultiPersona(const Milieu* milieu, Behavior** behaviors);
+    MultiPersona(const Milieu* milieu, const string name, std::map<string, Behavior*> &behaviors);
     ~MultiPersona() override;
     void updateParameters(Bug* bug) override;
     MultiPersona(const MultiPersona&) = delete;
