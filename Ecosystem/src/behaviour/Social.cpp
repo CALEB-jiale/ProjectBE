@@ -13,10 +13,10 @@ using namespace std;
 
 Social::Social(const Milieu *milieu) : Behavior(milieu) {
     this->milieu=milieu;
-    LOG_DEBUG("Create Social behavior operand")
+    LOG_DEBUG("Create Social behavior operand");
 }
 
-Social::~Social() { LOG_DEBUG("Destroy Social behavior operand") }
+Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
     vector<Bug const*> const neighbors = milieu.getNeighbors(*bug);

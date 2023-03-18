@@ -14,11 +14,11 @@ using namespace std;
 
 SuicideBoomer::SuicideBoomer(const Milieu *milieu) : Behavior(milieu) {
     this->milieu=milieu;
-    LOG_DEBUG("Create SuicideBoomer behavior operand")
+    LOG_DEBUG("Create SuicideBoomer behavior operand");
 }
 
 SuicideBoomer::~SuicideBoomer() {
-    LOG_DEBUG("Destroy SuicideBoomer behavior operand")
+    LOG_DEBUG("Destroy SuicideBoomer behavior operand");
 }
 
 void SuicideBoomer::updateParameters(Bug *bug) {
