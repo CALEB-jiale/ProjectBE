@@ -20,7 +20,7 @@ Fearful::Fearful(const Milieu* milieu) {
 Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
 
 void Fearful::updateParameters(const Bug *bug) {
-    vector<Bug const> neighbors = milieu.getNeighbors(*bug);
+    vector<Bug const *> neighbors = milieu->getNeighbors(*bug);
     int num_neighbor = neighbors.size();
     
     if (num_neighbor > 0) {
