@@ -28,6 +28,14 @@ void Milieu::addBug(Bug& bug) {
     listBugs.back().initCoords(width, height);
 }
 
+void Milieu::removeBug(Bug& bug) {
+    auto it = std::find(listBugs.begin(), listBugs.end(), bug);
+
+    if (it != listBugs.end()) {
+        listBugs.erase(it);
+    }
+}
+
 int Milieu::getNumNeighbors(Bug& bug) {
     int nb = 0;
     
@@ -40,5 +48,7 @@ int Milieu::getNumNeighbors(Bug& bug) {
 }
 
 void Milieu::kill() {
-    
+    if (!listBugs.empty()) {
+        listBugs.erase(listBugs.begin());
+    }
 }

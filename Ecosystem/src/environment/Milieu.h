@@ -18,6 +18,7 @@ public:
     ~Milieu();
     void step();
     void addBug(Bug& bug);
+    void removeBug(Bug& bug);
     int getNumNeighbors(Bug& bug);
     int getWidth() const { return width; };
     int getHeight() const { return height; };
