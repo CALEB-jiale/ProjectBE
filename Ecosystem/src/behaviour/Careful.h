@@ -14,7 +14,7 @@ class Careful : public Behavior {
 public:
     Careful(const Milieu* milieu);
     ~Careful() override;
-    void updateParameters(Bestiole* bug) override;
+    void updateParameters(Bug* bug) override;
     Careful(const Careful&) = delete;
     Careful& operator=(const Careful&) = delete;
 };

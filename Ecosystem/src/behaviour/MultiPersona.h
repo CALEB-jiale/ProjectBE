@@ -16,7 +16,7 @@ class MultiPersona : public Behaviour {
 public:
     MultiPersona(const Milieu* milieu, Behavior** behaviors);
     ~MultiPersona() override;
-    void updateParameters(Bestiole* bug) override;
+    void updateParameters(Bug* bug) override;
     MultiPersona(const MultiPersona&) = delete;
     MultiPersona& operator=(const MultiPersona&) = delete;
 };

@@ -14,7 +14,7 @@ class Social : public Behavior {
 public:
     Social(const Milieu* milieu);
     ~Social() override;
-    void updateParameters(Bestiole* bug) override;
+    void updateParameters(Bug* bug) override;
     Social(const Social&) = delete;
     Social& operator=(const Social&) = delete;
 };

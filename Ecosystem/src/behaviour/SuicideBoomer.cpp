@@ -19,7 +19,7 @@ SuicideBoomer::SuicideBoomer(const Milieu *milieu) : Behavior(milieu) {
 
 SuicideBoomer::~SuicideBoomer() { LOG_DEBUG("Destroy SuicideBoomer behavior operand") }
 
-void SuicideBoomer::updateParameters(Bestiole *bug) {
+void SuicideBoomer::updateParameters(Bug *bug) {
     double distance_min = static_cast<double>(INFINITY);
 
     auto bug_pos = bug.getPosition();
@@ -30,7 +30,7 @@ void SuicideBoomer::updateParameters(Bestiole *bug) {
     int closest_neighbor_y;
     double distance_min = static_cast<double>(INFINITY);
 
-    vector<Bestiole const*> const neighbors = milieu.getNeighbors(bug);
+    vector<Bug const*> const neighbors = milieu.getNeighbors(bug);
     for (auto neighbor : neighbors) {
         auto neighbor_coord = neighbor.getPosition();
         auto neighbor_x = neighbor_coord.first;

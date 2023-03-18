@@ -19,7 +19,7 @@ Careful::Careful(const Milieu *milieu) {
 
 Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
 
-void Careful::updateParameters(Bestiole *bug) {
+void Careful::updateParameters(Bug *bug) {
     double distance_min = static_cast<double>(INFINITY);
 
     auto bug_velocity = bug.getCurrentVelocity();
@@ -28,10 +28,10 @@ void Careful::updateParameters(Bestiole *bug) {
     auto bug_x_esti = bug_pos.first + bug_velocity * cos(bug_orientation);
     auto bug_y_esti = bug_pos.second + bug_velocity * sin(bug_orientation);
 
-    Bestiole const* closest_neighbor = nullptr;
+    Bug const* closest_neighbor = nullptr;
     double distance_min = static_cast<double>(INFINITY);
 
-    vector<Bestiole const*> const neighbors = milieu.getNeighbors(bug);
+    vector<Bug const*> const neighbors = milieu.getNeighbors(bug);
     for (auto neighbor : neighbors) {
         auto velocity = neighbor.getCurrentVelocity();
         auto orientation = neighbor.getOrientation();

@@ -39,12 +39,24 @@ void Milieu::removeBug(Bug& bug) {
 int Milieu::getNumNeighbors(Bug& bug) {
     int nb = 0;
     
-    for (std::vector<Bug>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it)
+    for (std::vector<Bug>::iterator it = listBugs.begin(); it != listBugs.end(); ++it)
         if (!(bug == *it) && bug.isDetected(*it)) {
             ++nb;
         }
 
     return nb;
+}
+
+std::vector<Bug*> Milieu::getNeighbors(Bug& bug) {
+    std::vector<Bug*> neighbors;
+
+    for (std::vector<Bug>::iterator it = listBugs.begin(); it != listBugs.end(); ++it) {
+        if (!(bug == *it) && bug.isDetected(*it)) {
+            neighbors.push_back(&(*it));
+        }
+    }
+
+    return neighbors;
 }
 
 void Milieu::kill() {

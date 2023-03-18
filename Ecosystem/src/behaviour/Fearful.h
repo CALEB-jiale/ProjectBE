@@ -13,7 +13,7 @@ class Fearful : public Behavior {
 public:
     FearFul(const Milieu* milieu);
     ~Fearful() override;
-    void updateParameters(Bestiole* bug) override;
+    void updateParameters(Bug* bug) override;
     Fearful(const Fearful&) = delete;
     Feaful& operator=(const Feaful&) = delete;
 };

@@ -15,7 +15,7 @@ protected:
 
 public:
     virtual ~Behavior(){};
-    virtual void updateParameters(Bestiole* bug) = 0;
+    virtual void updateParameters(Bug* bug) = 0;
 };
 
 

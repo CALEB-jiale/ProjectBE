@@ -14,7 +14,7 @@ class SuicideBoomer : public Behaviour {
 public:
     SuicideBoomer(const Milieu* milieu);
     ~SuicideBoomer() override;
-    void updateParameters(Bestiole* bug) override;
+    void updateParameters(Bug* bug) override;
     SuicideBoomer(const SuicideBoomer&) = delete;
     SuicideBoomer& operator=(const SuicideBoomer&) = delete;
 };
