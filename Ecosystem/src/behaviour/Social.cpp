@@ -20,23 +20,25 @@ Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
     vector<Bug const*> const neighbors = milieu.getNeighbors(*bug);
-    double orientation = 0;
     
-    for (auto neighbor : neighbors) {
-        orientation += neighbor->getOrientation();
-    }
-
     if (neighbors.size() > 0) {
+        double orientation = 0;
+        
+        for (auto neighbor : neighbors) {
+            orientation += neighbor->getOrientation();
+        }
+        
         orientation /= neighbors.size();
-    }
+        
+        while(orientation < 0) {
+            orientation += 2 * M_PI;
+        }
 
-    while(orientation < 0) {
-        orientation += 2 * M_PI;
+        while(orientation >= 2 * M_PI) {
+            orientation -= 2 * M_PI;
+        }
+        
+        bug->setOrientation(orientation);
     }
-
-    while(orientation >= 2 * M_PI) {
-        orientation -= 2 * M_PI;
-    }
-
-    bug->setOrientation(orientation);
+    
 }
