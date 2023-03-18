@@ -19,7 +19,7 @@ Social::Social(const Milieu *milieu) : Behavior(milieu) {
 Social::~Social() { LOG_DEBUG("Destroy Social behavior operand") }
 
 void Social::updateParameters(Bug *bug) {
-    vector<Bug const*> const neighbors = milieu.getNeighbors(bug);
+    vector<Bug const*> const neighbors = milieu.getNeighbors(*bug);
     double orientation = 0;
     
     for (auto neighbor : neighbors) {
