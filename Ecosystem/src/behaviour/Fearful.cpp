@@ -22,6 +22,9 @@ Fearful::Fearful(const Milieu* milieu, const string name) {
 Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
 
 void Fearful::updateParameters(const Bug *bug) {
+    T color[3] = {(T)0, (T)0, (T)255};
+    bug->setColor(color);
+    
     vector<Bug const *> neighbors = milieu->getNeighbors(*bug);
     int num_neighbor = neighbors.size();
     

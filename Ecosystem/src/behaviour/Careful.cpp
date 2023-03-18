@@ -8,6 +8,7 @@
 #include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <vector>
 #include <string>
 
@@ -22,6 +23,9 @@ Careful::Careful(const Milieu* milieu, const string name) {
 Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
 
 void Careful::updateParameters(Bug *bug) {
+    T color[3] = {(T)128, (T)0, (T)128};
+    bug->setColor(color);
+    
     auto bug_velocity = bug->getCurrentVelocity();
     auto bug_orientation = bug->getOrientation();
     auto bug_pos = bug->getPosition();

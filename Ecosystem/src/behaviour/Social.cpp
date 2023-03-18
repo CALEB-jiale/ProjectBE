@@ -21,24 +21,29 @@ Social::Social(const Milieu* milieu, const string name) {
 Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
-    vector<Bug const*> const neighbors = milieu.getNeighbors(*bug);
-    double orientation = 0;
+    T color[3] = {(T)0, (T)255, (T)0};
+    bug->setColor(color);
     
-    for (auto neighbor : neighbors) {
-        orientation += neighbor->getOrientation();
-    }
-
+    vector<Bug const*> const neighbors = milieu->getNeighbors(*bug);
+    
     if (neighbors.size() > 0) {
+        double orientation = 0;
+        
+        for (auto neighbor : neighbors) {
+            orientation += neighbor->getOrientation();
+        }
+        
         orientation /= neighbors.size();
-    }
+        
+        while(orientation < 0) {
+            orientation += 2 * M_PI;
+        }
 
-    while(orientation < 0) {
-        orientation += 2 * M_PI;
+        while(orientation >= 2 * M_PI) {
+            orientation -= 2 * M_PI;
+        }
+        
+        bug->setOrientation(orientation);
     }
-
-    while(orientation >= 2 * M_PI) {
-        orientation -= 2 * M_PI;
-    }
-
-    bug->setOrientation(orientation);
+    
 }
