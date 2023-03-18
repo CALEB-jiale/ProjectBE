@@ -68,7 +68,7 @@ bool Eye::isDetected(const Bug& bug) const {
     int x1 = position1.first;
     int y1 = position1.second;
     
-    auto position2 = this->owner->getPosition();
+    auto position2 = bug.getPosition();
     int x2 = position2.first;
     int y2 = position2.second;
     
