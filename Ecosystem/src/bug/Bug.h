@@ -1,18 +1,13 @@
 #ifndef _Bug_H_
 #define _Bug_H_
 
-#include <array>
-#include <iostream>
-#include <memory>
 #include <vector>
 
 #include "../../include/HMI/UImg.h"
-#include "../sensor/Sensor.h"
 
 using namespace std;
-
-using Color = array<T, 3>;
-
+class Sensor;
+class Behavior;
 
 class Bug {
 private:
@@ -38,7 +33,7 @@ private:
     double cloneProbability;
     double deathProbability;
     
-    std::vector<unique_ptr<Sensor>> sensors;
+    vector<Sensor*> sensors;
     Behavior* behavior;
     T* color;
 

@@ -1,18 +1,16 @@
 #include "Bug.h"
 
-#include "../../include/LogUtil.h"
-#include "../constants.h"
-#include "../environment/Milieu.h"
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <random>
 #include <vector>
 
-#include "Bug.h"
 #include "../sensor/Sensor.h"
 #include "../behavior/Behavior.h"
 #include "../../include/Random.h"
+#include "../../include/LogUtil.h"
+#include "../environment/Milieu.h"
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;

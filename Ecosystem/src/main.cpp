@@ -1,12 +1,9 @@
-#include "./bug/Bug.h"
-#include "./bug/BugFactory.h"
-#include "./environment/Aquarium.h"
-#include "./environment/Milieu.h"
-
-#include "constants.h"
-
 #include <iostream>
 #include <array>
+
+#include "./environment/Aquarium.h"
+
+//#include "constants.h"
 
 using namespace std;
 

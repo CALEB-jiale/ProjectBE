@@ -5,7 +5,6 @@
 
 using namespace cimg_library;
 
-
 class Milieu;
 class BugFactory;
 
@@ -13,6 +12,7 @@ class Aquarium : public CImgDisplay {
 private:
     Milieu* milieu;
     BugFactory* bugFactory;
+    int delay;
 public:
     Aquarium(int width, int length, int delay);
     ~Aquarium();

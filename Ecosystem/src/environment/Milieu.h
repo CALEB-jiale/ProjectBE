@@ -11,7 +11,7 @@ class Milieu : public UImg
 
 private :
     static const T white[];
-    int width, length;
+    int width, height;
     std::vector<Bug> listBugs;
 public:
     Milieu(int _width, int _height);

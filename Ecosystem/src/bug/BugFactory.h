@@ -1,13 +1,14 @@
 #ifndef _BUGFACTORY_H_
 #define _BUGFACTORY_H_
-#ifndef
 
 #include <iostream>
 
 using namespace std;
 class Bug;
 class Milieu;
-
+class BehaviorFactory;
+class SensorFactory;
+class AccessoryFacade;
 
 class BugFactory {
 private :
@@ -22,7 +23,7 @@ private :
 
 public:
     ~BugFactory();
-    BugFactory* getBugFactory();
+    static BugFactory* getBugFactory();
     Bug* getSuicideBoomer();
     Bug* getCareful();
     Bug* getSocial();
@@ -31,9 +32,7 @@ public:
     
     BugFactory(const BugFactory&) = delete;
     BugFactory& operator=(const BugFactory&) = delete;
-}
-
-
+};
 
 #endif /* BugFactory_hpp */
 

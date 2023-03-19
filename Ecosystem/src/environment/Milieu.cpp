@@ -27,7 +27,7 @@ void Milieu::step() {
 
 void Milieu::addBug(Bug& bug) {
     listBugs.push_back(bug);
-    listBugs.back().initCoords(width, height);
+    listBugs.back().initLocation(width, height);
 }
 
 void Milieu::removeBug(Bug& bug) {
