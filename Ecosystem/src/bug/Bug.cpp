@@ -15,11 +15,11 @@
 
 using namespace std;
 
-Bug::Bug(int id, double normal_velocity, double max_velocity, int age_limit,
+Bug::Bug(int ID, double normal_velocity, double max_velocity, int age_limit,
               double death_prob, double clone_prob, double orientation) {
 
     // Initialization
-    this->id = id;
+    this->ID = ID;
 
     this->x = 0;
     this->y = 0;
@@ -41,6 +41,8 @@ Bug::Bug(int id, double normal_velocity, double max_velocity, int age_limit,
 
     this->behavior = nullptr;
 
+    this-> alive = true;
+
     LOG_DEBUG("Construire Bug[%d] par default", this->identite);
 
 
@@ -55,7 +57,7 @@ Bug::Bug(const Bug &b) {
 }
 
 // Move Constructeur
-Bug::Bug(Bug &&b) : id(b.id), x(b.x), y(b.y), currentVelocity(b.currentVelocity),
+Bug::Bug(Bug &&b) : ID(b.ID), x(b.x), y(b.y), currentVelocity(b.currentVelocity),
       fastVelocity(b.fastVelocity), normalVelocity(b.normalVelocity) {
 
     LOG_DEBUG("Creating Bug[%d] using move", this->identite);
@@ -75,6 +77,8 @@ Bug::Bug(Bug &&b) : id(b.id), x(b.x), y(b.y), currentVelocity(b.currentVelocity)
     this->behavior = b.behavior;
 
     this->orientation = b.orientation;
+
+    this->alive = true;
 }
 
 Bug::~Bug(void) {
@@ -82,7 +86,7 @@ Bug::~Bug(void) {
 }
 
 Bug &Bug::operator=(Bug const &b) {
-    id = b.id;
+    ID = b.ID;
     x = b.x;
     y = b.y;
     cumulX = cumulY = 0.;
@@ -106,6 +110,7 @@ Bug &Bug::operator=(Bug const &b) {
     } // clone the behavior
 
     orientation = b.orientation;
+    this->alive = b.alive;
     return *this;
 }
 
@@ -146,7 +151,7 @@ void Bug::action(Milieu &milieu) {
 
         // ################# Delete bug when reaches age_limit ? ####################
     if (age > age_limit) {
-        delete this;
+        alive = false;
         return;
     }
 
@@ -154,7 +159,7 @@ void Bug::action(Milieu &milieu) {
     for (auto neighbor : neighbors) {
         if (this->isCollidingWith(*neighbor)) {
             if (Random::get<bool>(deathProbability)) {
-                delete this;
+                alive = false;
                 return;
             }
 
@@ -244,9 +249,13 @@ void Bug::draw(UImg &support) {
     support.draw_circle(xt, yt, AFF_SIZE / 2., color.data());
 }
 
+bool Bug::isAlive() { return alive; }
+
 
 bool operator==(const Bug &b1, const Bug &b2) {
-    return (b1.id == b2.id);
+    return (b1.ID == b2.ID);
 }
 
 bool operator!=(const Bug &b1, const Bug &b2) { return !(b1 == b2); }
+
+

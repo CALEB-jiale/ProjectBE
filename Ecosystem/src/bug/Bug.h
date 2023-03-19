@@ -19,7 +19,7 @@ using Color = array<T, 3>;
 class Bug {
 private:
     // position variables
-    int id;
+    int ID;
 
     int x;
     int y;
@@ -44,6 +44,8 @@ private:
     Behavior* behavior;
 
     Color color;
+
+    bool alive;
 
 public: // Forme canonique :
     Bug(int id, double normal_velocity, double max_velocity, int age_limit,
@@ -90,6 +92,8 @@ public: // Forme canonique :
     bool isCollidingWith(Bug const &b);
 
     void draw(UImg &support);
+
+    bool isAlive();
 
 private:
     void move(int xLim, int yLim);
