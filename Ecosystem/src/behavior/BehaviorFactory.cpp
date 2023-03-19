@@ -15,7 +15,7 @@
 
 using namespace std;
 
-BehaviorFactory::BehaviorFactory(milieu *milieu) {
+BehaviorFactory::BehaviorFactory(Milieu* milieu) {
     behaviors[carefull] = new Careful(milieu, carefull);
     behaviors[fearful] = new Fearful(milieu, fearful);
     behaviors[social] = new Social(milieu, social);

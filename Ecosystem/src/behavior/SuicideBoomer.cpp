@@ -30,8 +30,7 @@ SuicideBoomer::~SuicideBoomer() {
 }
 
 void SuicideBoomer::updateParameters(Bug *bug) {
-    T color[3] = {(T)255, (T)0, (T)0};
-    bug->setColor(color);
+    bug->setColor(255, 0, 0);
     
     auto bug_pos = bug->getPosition();
     auto bug_x = bug_pos.first;

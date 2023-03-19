@@ -22,7 +22,7 @@ Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
     T color[3] = {(T)0, (T)255, (T)0};
-    bug->setColor(color);
+    bug->setColor(0, 255, 0);
     
     vector<Bug const*> const neighbors = milieu->getNeighbors(*bug);
     

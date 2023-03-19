@@ -19,7 +19,7 @@ void Milieu::step() {
     cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
     for (std::vector<Bug>::iterator it = listBugs.begin(); it != listBugs.end(); ++it){
         if (it->isAlive()) {
-            it->action( *this );
+            it->action();
             it->draw( *this );
         }
     }

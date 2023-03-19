@@ -51,30 +51,29 @@ public: // Forme canonique :
     static int NUM_BUGS;
     
     Bug(); // Constructeur par defaut
-    Bug(const Bug &b); // Constructeur de copies
-    Bug(Bug &&b); // Move constructeur
-
-    Bug &operator=(Bug const &b);
+    Bug(const Bug& bug); // Constructeur de copies
 
     ~Bug();
 
-    void action(Milieu& milieu);
+    void action();
     void draw(UImg &support);
     bool isDetected(Bug& bug);
     void initLocation(int xLim, int yLim);
+    
     void addSensor(Sensor* sensor);
-    void removeSensor(Sensor* sensor);
     void setBehavior(Behavior* behavior);
-    double getCamouflageCapacity() const { return camouflageCapacity; }
-    double getOrientation() const { return orientation; }
+    
+    double getCamouflageCapacity() const;
+    double getOrientation() const;
     pair<int, int> getPosition() const;
-    void switchToFastVelocity() { currentVelocity = fastVelocity; }
-    void switchToNormalVelocity() { currentVelocity = normalVelocity; }
+    void switchToFastVelocity();
+    void switchToNormalVelocity();
+    
+    void setColor(int r, int g, int b);
     void setOrientation(double orientation);
     void updateVelocity(double velocityFactor);
     void updateCamouflageCapacity(double camouflageCapacity);
     void updateDeathProbability(double deathProbFactor);
-    void setColor(int r, int g, int b);
 
     bool isCollidingWith(Bug const &b);
 

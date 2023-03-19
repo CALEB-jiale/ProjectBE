@@ -5,6 +5,8 @@
 #include <iostream>
 
 using namespace std;
+class Bug;
+class Milieu;
 
 
 class BugFactory {
@@ -15,6 +17,7 @@ private :
     SensorFactory* sensorFactory;
     AccessoryFacade* accessoryFacade;
     
+    Milieu* milieu;
     BugFactory(Milieu* milieu);
 
 public:

@@ -19,8 +19,7 @@ Careful::Careful(const Milieu* milieu, const string name) {
 Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
 
 void Careful::updateParameters(Bug *bug) {
-    T color[3] = {(T)128, (T)0, (T)128};
-    bug->setColor(color);
+    bug->setColor(128, 0, 128);
     
     auto bug_velocity = bug->getCurrentVelocity();
     auto bug_orientation = bug->getOrientation();

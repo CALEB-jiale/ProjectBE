@@ -17,10 +17,17 @@ SensorFactory* SensorFactory::getSensorFactory() {
     return factory;
 }
 
-Eye* SensorFactory::getEye(Bug* bug) const {
-    return new Eye(bug);
+void SensorFactory::attachEye(Bug* bug) const {
+    Eye eye = new Eye(bug);
+    bug->addSensor(eye);
 }
 
-Ear* SensorFactory::getEar(Bug* bug) const {
-    return new Ear(bug);
+void SensorFactory::attachEar(Bug* bug) const {
+    Ear ear = new Ear(bug);
+    bug->addSensor(ear);
+}
+
+void SensorFactory::attachSensors(Bug* bug) const {
+    attachEye(bug);
+    attachEar(bug);
 }

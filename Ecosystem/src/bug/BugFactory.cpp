@@ -9,6 +9,7 @@ using namespace std;
 BugFactory* BugFactory::bugFactory = nullptr;
 
 BugFactory::BugFactory(Milieu* milieu) {
+    this->milieu = milieu;
     this->behaviorFactory = BehaviorFactory.getBehaviorFactory(milieu);
     this->sensorFactory = SensorFactory.getSensorFactory();
     this->accessoryFacade = new AccessoryFacade();
@@ -31,21 +32,46 @@ BugFactory::~BugFactory() {
 }
 
 Bug* BugFactory::getSuicideBoomer() {
-    return new suicideboomer;
+    Bug* bug = new Bug(milieu);
+    accessoryFacade->attachAccessories(bug);
+    sensorFactory->attachSensors(bug);
+    Behavior* behavior = behaviorFactory->getSuicideBoomer();
+    bug->setBehavior(behavior);
+    return bug;
 }
 
 Bug* BugFactory::getCareful() {
-    return new careful;
+    Bug* bug = new Bug(milieu);
+    accessoryFacade->attachAccessories(bug);
+    sensorFactory->attachSensors(bug);
+    Behavior* behavior = behaviorFactory->getCareful();
+    bug->setBehavior(behavior);
+    return bug;
 }
 
 Bug* BugFactory::getMultiPersona() {
-    return new multipersona;
+    Bug* bug = new Bug(milieu);
+    accessoryFacade->attachAccessories(bug);
+    sensorFactory->attachSensors(bug);
+    Behavior* behavior = behaviorFactory->getMultiPersona();
+    bug->setBehavior(behavior);
+    return bug;
 }
 
 Bug* BugFactory::getSocial() {
-    return new social;
+    Bug* bug = new Bug(milieu);
+    accessoryFacade->attachAccessories(bug);
+    sensorFactory->attachSensors(bug);
+    Behavior* behavior = behaviorFactory->getSocial();
+    bug->setBehavior(behavior);
+    return bug;
 }
 
 Bug* BugFactory::getFearful() {
-    return new social;
+    Bug* bug = new Bug(milieu);
+    accessoryFacade->attachAccessories(bug);
+    sensorFactory->attachSensors(bug);
+    Behavior* behavior = behaviorFactory->getFearful();
+    bug->setBehavior(behavior);
+    return bug;
 }

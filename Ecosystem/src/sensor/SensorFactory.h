@@ -14,8 +14,9 @@ private:
 public:
     ~SensorFactory();
     static SensorFactory* getSensorFactory();
-    Eye* getEye(Bug* bug) const;
-    Ear* getEar(Bug* bug) const;
+    void attachEye(Bug* bug) const;
+    void attachEar(Bug* bug) const;
+    void attachSensors(Bug* bug) const;
 };
 
 #endif
