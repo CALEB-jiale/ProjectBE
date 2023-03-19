@@ -1,7 +1,3 @@
-//
-// Created by Franck XU on 16/03/2023.
-//
-
 #ifndef PROJECTBE_BEHAVIOR_H
 #define
 

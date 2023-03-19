@@ -3,55 +3,65 @@
 #include "../../include/LogUtil.h"
 #include "../constants.h"
 #include "../environment/Milieu.h"
-#include "Bug.h"
-#include "../sensor/Sensor.h"
-#include "../behaviour/Behavior.h"
-
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <random>
 #include <vector>
 
+#include "Bug.h"
+#include "../sensor/Sensor.h"
+#include "../behavior/Behavior.h"
+#include "../../include/Random.h"
+
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 using namespace std;
 
-Bug::Bug(int ID, double normal_velocity, double max_velocity, int age_limit,
-              double death_prob, double clone_prob, double orientation) {
+const double MAX_AGE = 250;
+const double MIN_AGE = 50;
+const double MAX_SIGHT = 30.0;
+const double MIN_SIGHT = 10.0;
+const double SIZE = 8.0;
+const double MAX_VELOCITY = 10.0;
+const double MIN_VELOCITY = 2.0;
+const double MAX_CLONE_PROB = 0.2;
+const double MAX_DEATH_PROB = 0.5;
+const double MIN_DEATH_PROB = 0.05;
+int NUM_BUGS = 0;
+
+Bug::Bug() {
 
     // Initialization
-    this->ID = ID;
+    this->ID = ++NUM_BUGS;
 
-    this->x = 0;
-    this->y = 0;
+    x = y = 0;
+    cumulX = cumulY = 0.;
+    orientation = static_cast<double>(rand())/RAND_MAX*2.*M_PI;
 
-    this->currentVelocity = normal_velocity;
-    this->normalVelocity = normal_velocity;
-    this->fastVelocity = max_velocity;
-
-    this->orientation = orientation;
+    this->normalVelocity = Random::get(Bug.MIN_VELOCITY, Bug.MAX_VELOCITY * 0.8);
+    this->fastVelocity = Random::get(Bug.MAX_VELOCITY * 0.8, Bug.MAX_VELOCITY);
+    this->currentVelocity = normalVelocity;
 
     this->age = 0;
-    this-> ageLimit = age_limit;
-
-    this->deathProbability = death_prob;
-    this->camouflageCapacity = 0;
-    this->cloneProbability = clone_prob;
-
-    cumulX = cumulY = 0.;
-
-    this->behavior = nullptr;
-
+    this->ageLimit = Random::get(Bug.MIN_AGE, Bug.MAX_AGE);
     this-> alive = true;
 
+    this->camouflageCapacity = 0;
+    this->cloneProbability = clone_prob;
+    this->deathProbability = Random::get(Bug.MIN_AGE, Bug.MAX_AGE);
+
+    this->behavior = nullptr;
+    this->color = new T[3];
+    color[0] = 128;
+    color[1] = 128;
+    color[2] = 128;
+    
     LOG_DEBUG("Construire Bug[%d] par default", this->identite);
-
-
 }
 
-// TODO move construteur
+// move construteur
 Bug::Bug(const Bug &b) {
-  // TODO : update
-
   LOG_DEBUG("Construire Bug[%d] par copy", b.identite);
   *this = b;
 }
@@ -188,9 +198,9 @@ bool Bug::isDetected(const Bug &b) const {
     return false;
 }
 
-void Bug::initLocation(int x, int y) {
-    this->x = x;
-    this->y = y;
+void Bug::initLocation(int xLim, int yLim) {
+    x = rand() % xLim;
+    y = rand() % yLim;
 }
 
 

@@ -26,7 +26,7 @@ BehaviorFactory::BehaviorFactory(milieu *milieu) {
 }
 
 BehaviorFactory* BehaviorFactory::getBehaviorFactory(Milieu *milieu) {
-    if (factory) {
+    if(factory == nullptr) {
         factory = new BehaviorFactory(milieu);
     }
     return factory;

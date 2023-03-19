@@ -1,15 +1,13 @@
-#ifndef _BESTIOLES_H_
-#define _BESTIOLES_H_
-
-#include "../../include/HMI/UImg.h"
-#include "../accessoire/IAccessoire.h"
-#include "../sensor/Sensor.h"
+#ifndef _Bug_H_
+#define _Bug_H_
 
 #include <array>
 #include <iostream>
 #include <memory>
 #include <vector>
 
+#include "../../include/HMI/UImg.h"
+#include "../sensor/Sensor.h"
 
 using namespace std;
 
@@ -20,86 +18,75 @@ class Bug {
 private:
     // position variables
     int ID;
+    Milieu* milieu;
 
     int x;
     int y;
+    double orientation;
+    // affichage
+    double cumulX, cumulY;
 
     double currentVelocity;
     double normalVelocity;
     double fastVelocity;
 
-    double orientation;
-
     int age;
     int ageLimit;
+    bool alive;
 
     double camouflageCapacity;
     double cloneProbability;
     double deathProbability;
-
-    // affichage
-    double cumulX, cumulY;
+    
     std::vector<unique_ptr<Sensor>> sensors;
-
     Behavior* behavior;
-
-    Color color;
-
-    bool alive;
+    T* color;
 
 public: // Forme canonique :
-    Bug(int id, double normal_velocity, double max_velocity, int age_limit,
-           double death_prob, double clone_prob, double orientation); // Constructeur par defaut
-    Bug(const Bestiole &b);  // Constructeur de copies
-    Bug(Bestiole &&b);       // Move constructeur
+    static const double LIMIT_AGE;
+    static const double LIMIT_SIGHT;
+    static const double SIZE;
+    static const double LIMIT_VELOCITY;
+    static const double LIMIT_CLONE_RATE;
+    static int NUM_BUGS;
+    
+    Bug(); // Constructeur par defaut
+    Bug(const Bug &b); // Constructeur de copies
+    Bug(Bug &&b); // Move constructeur
 
-    Bestiole &operator=(Bestiole const &b);
+    Bug &operator=(Bug const &b);
 
-    ~Bestiole();
+    ~Bug();
 
     void action(Milieu& milieu);
-
-    bool isDetectedBy(Bug& b);
-
-    void initLocation(int x, int y);
-
+    void draw(UImg &support);
+    bool isDetected(Bug& bug);
+    void initLocation(int xLim, int yLim);
     void addSensor(Sensor* sensor);
-
     void removeSensor(Sensor* sensor);
-
     void setBehavior(Behavior* behavior);
-
-    double getCamouflageCapacity();
-
+    double getCamouflageCapacity() const { return camouflageCapacity; }
+    double getOrientation() const { return orientation; }
     pair<int, int> getPosition() const;
-
-    double getOrientation();
-
-    void switchToFastVelocity();
-
-    void switchToNormalVelocity();
-
+    void switchToFastVelocity() { currentVelocity = fastVelocity; }
+    void switchToNormalVelocity() { currentVelocity = normalVelocity; }
     void setOrientation(double orientation);
-
-    void updateVelocity(double velocity);
-
-    void updateCamouflageCapacity(double camouflage_capacity);
-
-    void updateDeathProbability(double death_prob);
-
-    void setColor(Color color);
+    void updateVelocity(double velocityFactor);
+    void updateCamouflageCapacity(double camouflageCapacity);
+    void updateDeathProbability(double deathProbFactor);
+    void setColor(int r, int g, int b);
 
     bool isCollidingWith(Bug const &b);
 
-    void draw(UImg &support);
-
-    bool isAlive();
+    bool isAlive() const { return alive; }
+    void kill() { alive = false; }
 
 private:
     void move(int xLim, int yLim);
+    void clone();
 };
 
 bool operator==(const Bug &b1, const Bug &b2);
-bool operator!=(const Bestiole &b1, const Bestiole &b2);
+bool operator!=(const Bug &b1, const Bug &b2);
 
 #endif

@@ -1,7 +1,3 @@
-//
-// Created by Franck XU on 16/03/2023.
-//
-
 #include "Careful.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"

@@ -1,7 +1,3 @@
-//
-// Created by Franck XU on 17/03/2023.
-//
-
 #ifndef PROJECTBE_BEHAVIORFACTORY_H
 #define PROJECTBE_BEHAVIORFACTORY_H
 
