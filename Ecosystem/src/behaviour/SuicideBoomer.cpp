@@ -11,14 +11,11 @@
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
 #include "../../include/LogUtil.h"
-<<<<<<< HEAD
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <string>
-=======
 #include "UImg.h"
->>>>>>> refs/remotes/origin/main
 
 using namespace std;
 

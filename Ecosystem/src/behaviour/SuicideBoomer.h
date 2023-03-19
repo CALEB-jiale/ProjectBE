@@ -6,10 +6,9 @@
 #define PROJECTBE_SUICIDEBOOMER_H
 
 #include "Behavior.h"
-#include "../bug/Bug.h"
-#include "../environment/Milieu.h"
-#include <string>
 
+class Milieu;
+class Bug;
 
 class SuicideBoomer : public Behavior {
 public:
