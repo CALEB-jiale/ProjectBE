@@ -3,105 +3,99 @@
 
 #include "../../include/HMI/UImg.h"
 #include "../accessoire/IAccessoire.h"
-#include "../capteur/ICapteur.h"
+#include "../sensor/Sensor.h"
 
 #include <array>
 #include <iostream>
 #include <memory>
 #include <vector>
+
+
 using namespace std;
 
-using Couleur = array<T, 3>;
-
-enum State {
-    EActive,
-    EPaused,
-    EDead
-};
+using Color = array<T, 3>;
 
 
-class Bestiole {
-
+class Bug {
 private:
-  // position variables
-  int id;
+    // position variables
+    int id;
 
-  int x;
-  int y;
+    int x;
+    int y;
 
-  double currentVelocity;
-  double normalVelocity;
-  double fastVelocity;
+    double currentVelocity;
+    double normalVelocity;
+    double fastVelocity;
 
-  double orientation;
+    double orientation;
 
-  int age;
+    int age;
+    int ageLimit;
 
-  double camouflageCapacity;
-  double cloneProbability;
-  double deathProbability;
+    double camouflageCapacity;
+    double cloneProbability;
+    double deathProbability;
 
-  // affichage
-  double cumulX, cumulY;
-  std::vector<unique_ptr<ICapteur>> list_capteurs;
+    // affichage
+    double cumulX, cumulY;
+    std::vector<unique_ptr<Sensor>> sensors;
 
-  Behavior* behavior;
+    Behavior* behavior;
 
-  State mState;
-
+    Color color;
 
 public: // Forme canonique :
-
-  Bestiole(int id, int x, int y, double normal_vitesse, double max_vitesse, int age_limit, double camouflage_coef,
+    Bug(int id, double normal_velocity, double max_velocity, int age_limit,
            double death_prob, double clone_prob, double orientation); // Constructeur par defaut
-  Bestiole(const Bestiole &b);  // Constructeur de copies
-  Bestiole(Bestiole &&b);       // Move constructeur
+    Bug(const Bestiole &b);  // Constructeur de copies
+    Bug(Bestiole &&b);       // Move constructeur
 
-  Bestiole &operator=(Bestiole const &b);
+    Bestiole &operator=(Bestiole const &b);
 
-  ~Bestiole(); // Destructeur                              // Operateur
-               // d'affectation binaire par defaut
+    ~Bestiole();
 
-//  void bouge(int xLim, int yLim);
-//
-//  void addAccessoire(IAccessoire acc);
-//  void addCapteur(ICapteur *capteur);
-//  void setComportement(unique_ptr<IComportement> comportement);
-//
-//  void action(Milieu &monMilieu);
-//
-//  bool jeTePercoit(const Bestiole &b) const;
-//  void changeState();
-//  void draw(UImg &support);
-//  double get_camouflage_coef() const;
-//  void set_camouflage_coef(double) { this->camouflage_coef = camouflage_coef; };
-//
-//  double getOrientation() const;
-//  void setOrientation(double o);
-//
-//  pair<double, double> getCoordinates() const;
-//
-//  void setVitesse(double o);
-//  double get_vitesse() const { return this->vitesse; };
-//  double get_max_vitesse() const { return this->max_vitesse; };
-//
-//  friend bool operator==(const Bestiole &b1, const Bestiole &b2);
-//
-//  void addAccessoire(double speed_multiplier, double fragility_multiplier,
-//                     double camouflage_mutliplier);
-//
-//  void set_fragility(double f) { this->fragility = f; };
-//  double get_fragility() { return this->fragility; };
-//
-//  void move_capteur(unique_ptr<ICapteur> &&cap);
-//
-//  bool isCollidingWith(Bestiole const &b) const;
-//  bool isDead() const;
-//  void kill();
-//
-//  string get_comportement_name() const;
+    void action(Milieu& milieu);
+
+    bool isDetectedBy(Bug& b);
+
+    void initLocation(int x, int y);
+
+    void addSensor(Sensor* sensor);
+
+    void removeSensor(Sensor* sensor);
+
+    void setBehavior(Behavior* behavior);
+
+    double getCamouflageCapacity();
+
+    pair<int, int> getPosition() const;
+
+    double getOrientation();
+
+    void switchToFastVelocity();
+
+    void switchToNormalVelocity();
+
+    void setOrientation(double orientation);
+
+    void updateVelocity(double velocity);
+
+    void updateCamouflageCapacity(double camouflage_capacity);
+
+    void updateDeathProbability(double death_prob);
+
+    void setColor(Color color);
+
+    bool isCollidingWith(Bug const &b);
+
+    void draw(UImg &support);
+
+private:
+    void move(int xLim, int yLim);
 };
 
+bool operator==(const Bug &b1, const Bug &b2);
 bool operator!=(const Bestiole &b1, const Bestiole &b2);
 
 #endif
