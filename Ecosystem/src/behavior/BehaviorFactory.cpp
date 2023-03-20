@@ -12,12 +12,12 @@
 
 using namespace std;
 
-BehaviorFactory* factory = nullptr;
-const string carefull = "Carefull";
-const string fearful = "Fearful";
-const string multipersona = "MultiPersona";
-const string social = "Social";
-const string suicideboomer = "SuicideBoomer";
+BehaviorFactory* BehaviorFactory::factory = nullptr;
+const string BehaviorFactory::carefull = "Carefull";
+const string BehaviorFactory::fearful = "Fearful";
+const string BehaviorFactory::multipersona = "MultiPersona";
+const string BehaviorFactory::social = "Social";
+const string BehaviorFactory::suicideboomer = "SuicideBoomer";
 
 
 BehaviorFactory::BehaviorFactory(Milieu* milieu) {

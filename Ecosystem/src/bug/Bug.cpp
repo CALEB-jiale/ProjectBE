@@ -16,17 +16,17 @@
 using Random = effolkronium::random_static;
 using namespace std;
 
-const double MAX_AGE = 250;
-const double MIN_AGE = 50;
-const double MAX_SIGHT = 30.0;
-const double MIN_SIGHT = 10.0;
-const double SIZE = 8.0;
-const double MAX_VELOCITY = 10.0;
-const double MIN_VELOCITY = 2.0;
-const double MAX_CLONE_PROB = 0.2;
-const double MAX_DEATH_PROB = 0.5;
-const double MIN_DEATH_PROB = 0.05;
-int NUM_BUGS = 0;
+const double Bug::MAX_AGE = 250;
+const double Bug::MIN_AGE = 50;
+const double Bug::MAX_SIGHT = 30.0;
+const double Bug::MIN_SIGHT = 10.0;
+const double Bug::SIZE = 8.0;
+const double Bug::MAX_VELOCITY = 10.0;
+const double Bug::MIN_VELOCITY = 2.0;
+const double Bug::MAX_CLONE_PROB = 0.2;
+const double Bug::MAX_DEATH_PROB = 0.5;
+const double Bug::MIN_DEATH_PROB = 0.05;
+int Bug::NUM_BUGS = 0;
 
 Bug::Bug(Milieu* milieu) {
     // Initialization
@@ -37,7 +37,7 @@ Bug::Bug(Milieu* milieu) {
     cumulX = cumulY = 0.;
     orientation = static_cast<double>(rand())/RAND_MAX*2.*M_PI;
 
-    this->normalVelocity = Random::get(Bug::MIN_VELOCITY, Bug::MAX_VELOCITY * 0.8);
+    this->normalVelocity = Random::get(MIN_VELOCITY, MAX_VELOCITY * 0.8);
     this->fastVelocity = Random::get(Bug::MAX_VELOCITY * 0.8, Bug::MAX_VELOCITY);
     this->currentVelocity = normalVelocity;
 

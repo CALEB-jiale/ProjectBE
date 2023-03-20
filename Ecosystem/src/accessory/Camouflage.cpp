@@ -2,8 +2,8 @@
 #include "../bug/Bug.h"
 #include "../../include/Random.h"
 
-double FACTOR_CAMOUFLAGE_MIN = 0.1;
-double FACTOR_CAMOUFLAGE_MAX = 0.9;
+double Camouflage::FACTOR_CAMOUFLAGE_MIN = 0.1;
+double Camouflage::FACTOR_CAMOUFLAGE_MAX = 0.9;
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
