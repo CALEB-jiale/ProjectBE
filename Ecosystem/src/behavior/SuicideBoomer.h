@@ -17,6 +17,7 @@ public:
     void updateParameters(Bug* bug) override;
     SuicideBoomer(const SuicideBoomer&) = delete;
     SuicideBoomer& operator=(const SuicideBoomer&) = delete;
+    Color getColor() const override { return {255, 0, 0}; }
 };
 
 

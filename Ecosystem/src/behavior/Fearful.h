@@ -8,6 +8,7 @@
 #include "Behavior.h"
 #include <string>
 
+using namespace std;
 class Bug;
 class Milieu;
 
@@ -18,6 +19,7 @@ public:
     void updateParameters(Bug* bug) override;
     Fearful(const Fearful&) = delete;
     Fearful& operator=(const Fearful&) = delete;
+    Color getColor() const override { return {0, 0, 255}; }
 };
 
 

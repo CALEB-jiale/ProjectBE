@@ -2,9 +2,10 @@
 #define PROJECTBE_CAREFUL_H
 
 #include "Behavior.h"
-#include "../bug/Bug.h"
-#include "../environment/Milieu.h"
 #include <string>
+
+class Bug;
+class Milieu;
 
 class Careful : public Behavior {
 public:
@@ -13,6 +14,7 @@ public:
     void updateParameters(Bug* bug) override;
     Careful(const Careful&) = delete;
     Careful& operator=(const Careful&) = delete;
+    Color getColor() const override { return {128, 0, 128}; }
 };
 
 

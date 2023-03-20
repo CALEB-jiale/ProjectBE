@@ -50,10 +50,6 @@ Bug::Bug(Milieu* milieu) {
     this->deathProbability = Random::get(Bug::MIN_AGE, Bug::MAX_AGE);
 
     this->behavior = nullptr;
-    this->color = new T[3];
-    color[0] = 128;
-    color[1] = 128;
-    color[2] = 128;
     
     LOG_DEBUG("Construire Bug[%d] par default", this->identite);
 }
@@ -96,13 +92,19 @@ Bug::~Bug() {
 }
 
 void Bug::action() {
+    cout << "Bug action" << endl;
     age++;
     if (age > ageLimit) {
         alive = false;
         return;
     }
+    
+    cout << "Bug alive in action" << endl;
 
     const auto neighbors = milieu->getNeighbors(*this);
+    
+    cout << "Bug neighbor getted" << endl;
+    
     for (auto neighbor : neighbors) {
         if (this->isCollidingWith(*neighbor)) {
             if (Random::get<bool>(deathProbability)) {
@@ -112,15 +114,20 @@ void Bug::action() {
             this->orientation = orientation + M_PI;
         }
     }
+    
+    cout << "Bug penged" << endl;
 
     if (behavior) {
         behavior->updateParameters(this);
     }
     
+    cout << "Bug behaviored" << endl;
+    
     move();
 }
 
 void Bug::draw(UImg &support) {
+    cout << "Bug draw" << endl;
     double xt = x + cos(orientation) * SIZE / 2.1;
     double yt = y - sin(orientation) * SIZE / 2.1;
 
@@ -128,8 +135,10 @@ void Bug::draw(UImg &support) {
         sensor->draw(support);
     }
     
-    support.draw_ellipse(x, y, SIZE, SIZE / 5., -orientation / M_PI * 180., color);
-    support.draw_circle(xt, yt, SIZE / 2., color);
+    auto color = behavior->getColor();
+    
+    support.draw_ellipse(x, y, SIZE, SIZE / 5., -orientation / M_PI * 180., color.data());
+    support.draw_circle(xt, yt, SIZE / 2., color.data());
 }
 
 bool Bug::isDetected(const Bug& bug) const {
@@ -166,12 +175,6 @@ void Bug::switchToFastVelocity() { this->currentVelocity = fastVelocity; }
 void Bug::switchToNormalVelocity() { this->currentVelocity = normalVelocity; }
 
 double Bug::getCurrentVelocity() const { return currentVelocity; }
-
-void Bug::setColor(int r, int g, int b) {
-    color[0] = r;
-    color[1] = g;
-    color[2] = b;
-}
 
 void Bug::setOrientation(double orientation) { this->orientation = orientation; }
 

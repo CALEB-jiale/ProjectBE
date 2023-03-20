@@ -19,7 +19,7 @@ Careful::Careful(Milieu* milieu, string name) {
 Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
 
 void Careful::updateParameters(Bug *bug) {
-    bug->setColor(128, 0, 128);
+    cout << "Careful update" << endl;
     
     auto bug_velocity = bug->getCurrentVelocity();
     auto bug_orientation = bug->getOrientation();
@@ -41,7 +41,6 @@ void Careful::updateParameters(Bug *bug) {
 
         // Estimer la distance entre les insectes et le risque de collision imminente
         double diff_distance = pow(neighbor_x_esti - bug_x_esti, 2) + pow(neighbor_y_esti - bug_y_esti, 2);
-        double distance = sqrt(diff_distance);
 
         if (diff_distance < closest_distance) {
             closest_distance = diff_distance;

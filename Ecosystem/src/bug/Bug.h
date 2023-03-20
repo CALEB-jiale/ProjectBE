@@ -2,6 +2,7 @@
 #define _Bug_H_
 
 #include <vector>
+#include <array>
 
 #include "../../include/HMI/UImg.h"
 
@@ -9,6 +10,7 @@ using namespace std;
 class Sensor;
 class Behavior;
 class Milieu;
+using Color = array<T, 3>;
 
 class Bug {
 private:
@@ -36,7 +38,6 @@ private:
     
     vector<Sensor*> sensors;
     Behavior* behavior;
-    T* color;
 
 public: // Forme canonique :
     static const double MAX_AGE;
@@ -71,7 +72,6 @@ public: // Forme canonique :
     void switchToNormalVelocity();
     double getCurrentVelocity() const;
     
-    void setColor(int r, int g, int b);
     void setOrientation(double orientation);
     void updateVelocity(double velocityFactor);
     void updateCamouflageCapacity(double camouflageCapacity);

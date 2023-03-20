@@ -20,6 +20,7 @@ public:
     void updateParameters(Bug* bug) override;
     MultiPersona(const MultiPersona&) = delete;
     MultiPersona& operator=(const MultiPersona&) = delete;
+    Color getColor() const override { return {125, 125, 125}; }
 };
 
 

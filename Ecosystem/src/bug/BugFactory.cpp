@@ -16,6 +16,7 @@ BugFactory::BugFactory(Milieu* milieu) {
     this->sensorFactory = SensorFactory::getSensorFactory();
     this->accessoryFacade = AccessoryFacade::getAccessoryFacade();
     LOG_DEBUG("Creating Bug Factory");
+    cout << "Creating Bug Factory" << endl;
 }
 
 BugFactory* BugFactory::getBugFactory(Milieu* milieu) {

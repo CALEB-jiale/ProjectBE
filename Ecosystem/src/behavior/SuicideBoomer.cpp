@@ -30,7 +30,7 @@ SuicideBoomer::~SuicideBoomer() {
 }
 
 void SuicideBoomer::updateParameters(Bug *bug) {
-    bug->setColor(255, 0, 0);
+    cout << "SuicideBoomer up" << endl;
     
     auto bug_pos = bug->getPosition();
     auto bug_x = bug_pos.first;

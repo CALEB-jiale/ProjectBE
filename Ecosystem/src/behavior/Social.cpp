@@ -8,6 +8,7 @@
 #include "../../include/LogUtil.h"
 #include <cmath>
 #include <vector>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -21,8 +22,7 @@ Social::Social(Milieu* milieu, string name) {
 Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
-    T color[3] = {(T)0, (T)255, (T)0};
-    bug->setColor(0, 255, 0);
+    cout << "Social up" << endl;
     
     vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
     

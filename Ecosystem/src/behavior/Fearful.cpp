@@ -19,7 +19,7 @@ Fearful::Fearful(Milieu* milieu, string name) {
 Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
 
 void Fearful::updateParameters(Bug *bug) {
-    bug->setColor(0, 0, 255);
+    cout << "fearful up" << endl;
     
     vector<Bug *> neighbors = milieu->getNeighbors(*bug);
     int num_neighbor = neighbors.size();

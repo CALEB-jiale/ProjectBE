@@ -22,7 +22,6 @@ void showMessageBar() {
 
 std::array<int, 5> getNums() {
     std::array<int, 5> nums;
-    int sum = 0;
 
     showMessageBar();
 
