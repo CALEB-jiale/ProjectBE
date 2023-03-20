@@ -235,4 +235,8 @@ void Bug::clone() {
     }
 }
 
+bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }
 
+bool operator==(const Bug &bug1, const Bug &bug2) {
+  return (bug1.ID == bug2.ID);
+}

@@ -12,12 +12,12 @@ Aquarium::Aquarium(int width, int height, int _delay) : CImgDisplay(), delay(_de
     int screenWidth = 1280; //screen_width();
     int screenHeight = 1024; //screen_height();
     
-    bugFactory = BugFactory::getBugFactory();
-    
     cout << "const Aquarium" << endl;
 
     milieu = new Milieu(width, height);
     assign(*milieu, "Simulation d'ecosysteme");
+    
+    bugFactory = BugFactory::getBugFactory(milieu);
 
     move(static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2));
 }

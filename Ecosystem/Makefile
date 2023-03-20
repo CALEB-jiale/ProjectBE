@@ -16,10 +16,10 @@
 # 	rm -rf *.o main
 
 all:
-	cd ./src && make;
+	cd ./src && make clean && make;
 
 run:
-	cd ./src && make && ./main;
+	cd ./src && make clean && make && ./main;
 
 clean:
 	cd ./src && make clean;
