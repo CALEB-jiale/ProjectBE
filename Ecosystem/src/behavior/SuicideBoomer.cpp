@@ -19,7 +19,7 @@
 
 using namespace std;
 
-SuicideBoomer::SuicideBoomer(const Milieu* milieu, const string name) : Behavior(milieu) {
+SuicideBoomer::SuicideBoomer(Milieu* milieu, string name) {
     this->milieu=milieu;
     this->name = name;
     LOG_DEBUG("Create SuicideBoomer behavior operand");
@@ -40,7 +40,7 @@ void SuicideBoomer::updateParameters(Bug *bug) {
     int closest_neighbor_y;
     double closest_distance = std::numeric_limits<double>::infinity();
 
-    vector<Bug const*> const neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
     for (auto neighbor : neighbors) {
         auto neighbor_coord = neighbor->getPosition();
         auto neighbor_x = neighbor_coord.first;

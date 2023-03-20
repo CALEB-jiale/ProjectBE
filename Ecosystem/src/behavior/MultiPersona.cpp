@@ -13,7 +13,7 @@
 #include <string>
 #include <map>
 
-MultiPersona::MultiPersona(const Milieu* milieu, const string name, std::map<string, Behavior*> &behaviors) {
+MultiPersona::MultiPersona(Milieu* milieu, string name, std::map<string, Behavior*> &behaviors) {
     this->milieu=milieu;
     this->name = name;
     for (auto b : behaviors) {

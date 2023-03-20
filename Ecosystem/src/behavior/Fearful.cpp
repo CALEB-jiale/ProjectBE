@@ -1,19 +1,16 @@
-//
-// Created by Franck XU on 16/03/2023.
-//
-
-#include "Fearful.h"
-#include "../bug/Bug.h"
-#include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <string>
 
+#include "Fearful.h"
+#include "../bug/Bug.h"
+#include "../environment/Milieu.h"
+#include "../../include/LogUtil.h"
+
 using namespace std;
 
-Fearful::Fearful(const Milieu* milieu, const string name) {
+Fearful::Fearful(Milieu* milieu, string name) {
     this->milieu=milieu;
     this->name = name;
     LOG_DEBUG("Create fearful behavior operand");
@@ -21,10 +18,10 @@ Fearful::Fearful(const Milieu* milieu, const string name) {
 
 Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
 
-void Fearful::updateParameters(const Bug *bug) {
+void Fearful::updateParameters(Bug *bug) {
     bug->setColor(0, 0, 255);
     
-    vector<Bug const *> neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> neighbors = milieu->getNeighbors(*bug);
     int num_neighbor = neighbors.size();
     
     if (num_neighbor > 0) {

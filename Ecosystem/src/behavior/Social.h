@@ -12,7 +12,7 @@ class Bug;
 
 class Social : public Behavior {
 public:
-    Social(const Milieu* milieu, const string name);
+    Social(Milieu* milieu, string name);
     ~Social() override;
     void updateParameters(Bug* bug) override;
     Social(const Social&) = delete;

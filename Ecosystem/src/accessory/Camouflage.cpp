@@ -9,6 +9,6 @@ double FACTOR_CAMOUFLAGE_MAX = 0.9;
 using Random = effolkronium::random_static;
 
 void Camouflage::updateParameters(Bug* bug) const {
-    double randomFactor = Random::get(Camouflage.FACTOR_CAMOUFLAGE_MIN, Camouflage.FACTOR_CAMOUFLAGE_MAX);
+    double randomFactor = Random::get(Camouflage::FACTOR_CAMOUFLAGE_MIN, Camouflage::FACTOR_CAMOUFLAGE_MAX);
     bug->updateCamouflageCapacity(randomFactor);
 }

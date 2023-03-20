@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Careful::Careful(const Milieu* milieu, const string name) {
+Careful::Careful(Milieu* milieu, string name) {
     this->milieu = milieu;
     this->name = name;
     LOG_DEBUG("Create Careful behavior operand");
@@ -30,7 +30,7 @@ void Careful::updateParameters(Bug *bug) {
     Bug const* closest_neighbor = nullptr;
     double closest_distance = std::numeric_limits<double>::infinity();
 
-    vector<Bug const*> const neighbors = milieu->getNeighbors(bug);
+    vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
     for (auto neighbor : neighbors) {
         auto velocity = neighbor->getCurrentVelocity();
         auto orientation = neighbor->getOrientation();

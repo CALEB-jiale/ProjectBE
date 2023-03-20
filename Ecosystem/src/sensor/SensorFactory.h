@@ -3,6 +3,7 @@
 
 class Eye;
 class Ear;
+class Bug;
 
 class SensorFactory {
 private:

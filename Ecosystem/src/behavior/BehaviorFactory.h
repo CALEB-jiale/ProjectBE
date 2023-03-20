@@ -3,17 +3,19 @@
 
 #include <map>
 #include <string>
-#include "../environment/Milieu.h"
 
+class Behavior;
+class Milieu;
+using namespace std;
 
 class BehaviorFactory {
 private:
-    static BehaviorFactory* factor = nullptr;
-    static const string carefull = "Carefull";
-    static const string fearful = "Fearful";
-    static const string multipersona = "MultiPersona";
-    static const string social = "Social";
-    static const string suicideboomer = "SuicideBoomer";
+    static BehaviorFactory* factory;
+    static const string carefull;
+    static const string fearful;
+    static const string multipersona;
+    static const string social;
+    static const string suicideboomer;
 
     std::map<string, Behavior*> behaviors;
     BehaviorFactory(Milieu* milieu);

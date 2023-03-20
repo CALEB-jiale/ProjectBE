@@ -8,7 +8,7 @@
 
 class Careful : public Behavior {
 public:
-    Careful(const Milieu* milieu, const string name);
+    Careful(Milieu* milieu, string name);
     ~Careful() override;
     void updateParameters(Bug* bug) override;
     Careful(const Careful&) = delete;

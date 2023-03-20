@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Social::Social(const Milieu* milieu, const string name) {
+Social::Social(Milieu* milieu, string name) {
     this->milieu = milieu;
     this->name = name;
     LOG_DEBUG("Create Social behavior operand");
@@ -24,7 +24,7 @@ void Social::updateParameters(Bug *bug) {
     T color[3] = {(T)0, (T)255, (T)0};
     bug->setColor(0, 255, 0);
     
-    vector<Bug const*> const neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
     
     if (neighbors.size() > 0) {
         double orientation = 0;

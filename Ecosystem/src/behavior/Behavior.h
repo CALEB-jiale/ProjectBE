@@ -1,5 +1,5 @@
-#ifndef PROJECTBE_BEHAVIOR_H
-#define
+#ifndef _BEHAVIOR_H_
+#define _BEHAVIOR_H_
 
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"

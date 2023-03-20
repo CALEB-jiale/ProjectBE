@@ -15,7 +15,7 @@
 class MultiPersona : public Behavior {
     std::vector<Behavior*> behaviors;
 public:
-    MultiPersona(const Milieu* milieu, const string name, std::map<string, Behavior*> &behaviors);
+    MultiPersona(Milieu* milieu, string name, std::map<string, Behavior*> &behaviors);
     ~MultiPersona() override;
     void updateParameters(Bug* bug) override;
     MultiPersona(const MultiPersona&) = delete;

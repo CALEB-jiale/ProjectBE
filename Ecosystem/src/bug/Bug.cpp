@@ -37,17 +37,17 @@ Bug::Bug(Milieu* milieu) {
     cumulX = cumulY = 0.;
     orientation = static_cast<double>(rand())/RAND_MAX*2.*M_PI;
 
-    this->normalVelocity = Random::get(Bug.MIN_VELOCITY, Bug.MAX_VELOCITY * 0.8);
-    this->fastVelocity = Random::get(Bug.MAX_VELOCITY * 0.8, Bug.MAX_VELOCITY);
+    this->normalVelocity = Random::get(Bug::MIN_VELOCITY, Bug::MAX_VELOCITY * 0.8);
+    this->fastVelocity = Random::get(Bug::MAX_VELOCITY * 0.8, Bug::MAX_VELOCITY);
     this->currentVelocity = normalVelocity;
 
     this->age = 0;
-    this->ageLimit = Random::get(Bug.MIN_AGE, Bug.MAX_AGE);
+    this->ageLimit = Random::get(Bug::MIN_AGE, Bug::MAX_AGE);
     this-> alive = true;
 
     this->camouflageCapacity = 0;
-    this->cloneProbability = clone_prob;
-    this->deathProbability = Random::get(Bug.MIN_AGE, Bug.MAX_AGE);
+    this->cloneProbability = MAX_CLONE_PROB;
+    this->deathProbability = Random::get(Bug::MIN_AGE, Bug::MAX_AGE);
 
     this->behavior = nullptr;
     this->color = new T[3];
@@ -83,8 +83,8 @@ Bug::Bug(const Bug& bug) {
         sensors.push_back(sensor->clone());
     } // clone all the capteurs
 
-    if (b.behavior) {
-        behavior = b.behavior;
+    if (bug.behavior) {
+        behavior = bug.behavior;
     } // clone the behavior
 }
 
@@ -97,7 +97,7 @@ Bug::~Bug() {
 
 void Bug::action() {
     age++;
-    if (age > age_limit) {
+    if (age > ageLimit) {
         alive = false;
         return;
     }
@@ -132,7 +132,7 @@ void Bug::draw(UImg &support) {
     support.draw_circle(xt, yt, SIZE / 2., color);
 }
 
-bool Bug::isDetected(const Bug &bug) const {
+bool Bug::isDetected(const Bug& bug) const {
     for (auto const sensor : sensors) {
         if (sensor->isDetected(bug)) {
             return true;
@@ -165,6 +165,8 @@ void Bug::switchToFastVelocity() { this->currentVelocity = fastVelocity; }
 
 void Bug::switchToNormalVelocity() { this->currentVelocity = normalVelocity; }
 
+double Bug::getCurrentVelocity() const { return currentVelocity; }
+
 void Bug::setColor(int r, int g, int b) {
     color[0] = r;
     color[1] = g;
@@ -180,31 +182,25 @@ void Bug::updateVelocity(double velocityFactor) {
 }
 
 void Bug::updateCamouflageCapacity(double camouflageCapacity) {
-    camouflageCapacity = camouflageCapacity;
+    this->camouflageCapacity = camouflageCapacity;
 }
 
 void Bug::updateDeathProbability(double deathProbFactor) {
     deathProbability = deathProbability * deathProbFactor;
 }
 
-bool Bug::isCollidingWith(Bug const &b) const {
+bool Bug::isCollidingWith(const Bug& b) const {
     int dx = x - b.x;
     int dy = y - b.y;
     return dx * dx + dy * dy <= SIZE * SIZE;
 }
 
-bool Bug::isAlive() { return alive; }
-
-void Bug::kill() {
-    alive = false;
-}
-
 void Bug::move() {
-    int xLim = milieu.getWidth();
-    int yLim = milieu.getHeight();
+    int xLim = milieu->getWidth();
+    int yLim = milieu->getHeight();
     double nx, ny;
-    double dx = cos(orientation) * velocity;
-    double dy = -sin(orientation) * velocity;
+    double dx = cos(orientation) * currentVelocity;
+    double dy = -sin(orientation) * currentVelocity;
     int cx, cy;
 
     cx = static_cast<int>(cumulX);
@@ -238,11 +234,5 @@ void Bug::clone() {
         milieu->addBug(bug);
     }
 }
-
-bool operator==(const Bug &b1, const Bug &b2) {
-    return (b1.ID == b2.ID);
-}
-
-bool operator!=(const Bug &b1, const Bug &b2) { return !(b1 == b2); }
 
 

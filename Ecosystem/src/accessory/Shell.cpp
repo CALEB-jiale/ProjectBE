@@ -9,9 +9,9 @@ double FACTOR_DEATH = 1.5;
 using Random = effolkronium::random_static;
 
 void Shell::updateParameters(Bug* bug) const {
-    double randomFactor = Shell::get(1, Camouflage.FACTOR_VELOCITY);
+    double randomFactor = Random::get(1., Shell::FACTOR_VELOCITY);
     bug->updateVelocity(1/randomFactor);
     
-    randomFactor = Shell::get(1, Camouflage.FACTOR_DEATH);
+    randomFactor = Random::get(1., Shell::FACTOR_DEATH);
     bug->updateDeathProbability(randomFactor);
 }

@@ -1,7 +1,9 @@
 #include "BugFactory.h"
+#include "Bug.h"
 #include "../sensor/SensorFactory.h"
 #include "../behavior/BehaviorFactory.h"
 #include "../accessory/AccessoryFacade.h"
+#include "../../include/LogUtil.h"
 #include <iostream>
 
 using namespace std;
@@ -10,13 +12,13 @@ BugFactory* BugFactory::bugFactory = nullptr;
 
 BugFactory::BugFactory(Milieu* milieu) {
     this->milieu = milieu;
-    this->behaviorFactory = BehaviorFactory.getBehaviorFactory(milieu);
-    this->sensorFactory = SensorFactory.getSensorFactory();
-    this->accessoryFacade = new AccessoryFacade();
+    this->behaviorFactory = BehaviorFactory::getBehaviorFactory(milieu);
+    this->sensorFactory = SensorFactory::getSensorFactory();
+    this->accessoryFacade = AccessoryFacade::getAccessoryFacade();
     LOG_DEBUG("Creating Bug Factory");
 }
 
-BugFactory* BugFactory::getBugFactory(Milieu *milieu) {
+BugFactory* BugFactory::getBugFactory(Milieu* milieu) {
     if(bugFactory == nullptr) {
         bugFactory = new BugFactory(milieu);
     }
@@ -25,9 +27,9 @@ BugFactory* BugFactory::getBugFactory(Milieu *milieu) {
 
 BugFactory::~BugFactory() {
     delete behaviorFactory;
-    delete SensorFactory;
-    delete AccessoryFacade;
-    factory = nullptr;
+    delete sensorFactory;
+    delete accessoryFacade;
+    bugFactory = nullptr;
     LOG_DEBUG("Destroying Bug Factory");
 }
 

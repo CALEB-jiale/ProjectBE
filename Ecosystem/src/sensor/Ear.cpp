@@ -13,8 +13,8 @@ double Ear::DETECT_CAPACITY_MAX = 100.;
 
 Ear::Ear(Bug* owner) {
     this->owner = owner;
-    this->detectCapacity = Random::get(Ear.DETECT_CAPACITY_MIN, Ear.DETECT_CAPACITY_MAX);
-    this->distance = Random::get(Ear.DISTANCE_MIN, Ear.DISTANCE_MAX);
+    this->detectCapacity = Random::get(Ear::DETECT_CAPACITY_MIN, Ear::DETECT_CAPACITY_MAX);
+    this->distance = Random::get(Ear::DISTANCE_MIN, Ear::DISTANCE_MAX);
     this->angle = 2 * M_PI;
 }
 

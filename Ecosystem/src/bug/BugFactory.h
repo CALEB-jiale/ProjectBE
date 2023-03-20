@@ -23,7 +23,7 @@ private :
 
 public:
     ~BugFactory();
-    static BugFactory* getBugFactory();
+    static BugFactory* getBugFactory(Milieu* milieu);
     Bug* getSuicideBoomer();
     Bug* getCareful();
     Bug* getSocial();

@@ -8,6 +8,6 @@ double FACTOR_VELOCITY = 1.5;
 using Random = effolkronium::random_static;
 
 void Fin::updateParameters(Bug* bug) const {
-    double randomFactor = Random::get(1, Fin.FACTOR_VELOCITY);
+    double randomFactor = Random::get(1., Fin::FACTOR_VELOCITY);
     bug->updateVelocity(randomFactor);
 }

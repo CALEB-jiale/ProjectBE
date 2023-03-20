@@ -1,5 +1,8 @@
 #include "AccessoryFacade.h"
 #include "Accessory.h"
+#include "Camouflage.h"
+#include "Shell.h"
+#include "Fin.h"
 #include "../bug/Bug.h"
 #include "../../include/Random.h"
 
@@ -36,7 +39,7 @@ void AccessoryFacade::addAccessory(Accessory* accessory, int num) {
 
 void AccessoryFacade::attachAccessories(Bug* bug) {
     int numAccessories = accessories.size();
-    for (i = 0; i < numAccessories; i++) {
+    for (int i = 0; i < numAccessories; i++) {
         int randomNum = Random::get(0, numAccessoryMax[i]);
         for (int j = 0; j < randomNum; j++) {
             accessories[i]->updateParameters(bug);

@@ -8,6 +8,7 @@
 using namespace std;
 class Sensor;
 class Behavior;
+class Milieu;
 
 class Bug {
 private:
@@ -38,21 +39,26 @@ private:
     T* color;
 
 public: // Forme canonique :
-    static const double LIMIT_AGE;
-    static const double LIMIT_SIGHT;
+    static const double MAX_AGE;
+    static const double MIN_AGE;
+    static const double MAX_SIGHT;
+    static const double MIN_SIGHT;
     static const double SIZE;
-    static const double LIMIT_VELOCITY;
-    static const double LIMIT_CLONE_RATE;
+    static const double MAX_VELOCITY;
+    static const double MIN_VELOCITY;
+    static const double MAX_CLONE_PROB;
+    static const double MAX_DEATH_PROB;
+    static const double MIN_DEATH_PROB;
     static int NUM_BUGS;
     
-    Bug(); // Constructeur par defaut
+    Bug(Milieu* milieu); // Constructeur par defaut
     Bug(const Bug& bug); // Constructeur de copies
 
     ~Bug();
 
     void action();
     void draw(UImg &support);
-    bool isDetected(Bug& bug);
+    bool isDetected(const Bug& bug) const;
     void initLocation(int xLim, int yLim);
     
     void addSensor(Sensor* sensor);
@@ -63,6 +69,7 @@ public: // Forme canonique :
     pair<int, int> getPosition() const;
     void switchToFastVelocity();
     void switchToNormalVelocity();
+    double getCurrentVelocity() const;
     
     void setColor(int r, int g, int b);
     void setOrientation(double orientation);
@@ -70,17 +77,14 @@ public: // Forme canonique :
     void updateCamouflageCapacity(double camouflageCapacity);
     void updateDeathProbability(double deathProbFactor);
 
-    bool isCollidingWith(Bug const &b);
+    bool isCollidingWith(const Bug& b) const;
 
     bool isAlive() const { return alive; }
     void kill() { alive = false; }
 
 private:
-    void move(int xLim, int yLim);
+    void move();
     void clone();
 };
-
-bool operator==(const Bug &b1, const Bug &b2);
-bool operator!=(const Bug &b1, const Bug &b2);
 
 #endif

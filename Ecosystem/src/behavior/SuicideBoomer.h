@@ -12,7 +12,7 @@ class Bug;
 
 class SuicideBoomer : public Behavior {
 public:
-    SuicideBoomer(const Milieu* milieu, const string name);
+    SuicideBoomer(Milieu* milieu, string name);
     ~SuicideBoomer() override;
     void updateParameters(Bug* bug) override;
     SuicideBoomer(const SuicideBoomer&) = delete;

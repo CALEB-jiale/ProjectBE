@@ -1,11 +1,8 @@
-//
-// Created by Franck XU on 17/03/2023.
-//
-
-#include "BehaviorFactory.h"
 #include <map>
 #include <string>
+#include "BehaviorFactory.h"
 #include "../environment/Milieu.h"
+#include "../../include/LogUtil.h"
 #include "Behavior.h"
 #include "Careful.h"
 #include "Fearful.h"
@@ -14,6 +11,14 @@
 #include "SuicideBoomer.h"
 
 using namespace std;
+
+BehaviorFactory* factory = nullptr;
+const string carefull = "Carefull";
+const string fearful = "Fearful";
+const string multipersona = "MultiPersona";
+const string social = "Social";
+const string suicideboomer = "SuicideBoomer";
+
 
 BehaviorFactory::BehaviorFactory(Milieu* milieu) {
     behaviors[carefull] = new Careful(milieu, carefull);
