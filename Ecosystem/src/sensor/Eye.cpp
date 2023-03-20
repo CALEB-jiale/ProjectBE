@@ -2,6 +2,7 @@
 #include "Eye.h"
 #include "../bug/Bug.h"
 #include "../../include/Random.h"
+#include "../../include/HMI/UImg.h"
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
@@ -33,9 +34,9 @@ Sensor* Eye::clone() const {
 
 void Eye::draw(UImg &support) const {
     T* color = new T[3];
-    color[0] = 100;
-    color[1] = 100;
-    color[2] = 100;
+    color[0] = 200;
+    color[1] = 200;
+    color[2] = 200;
     
     double orientation = this->owner->getOrientation(); // rad
     auto position = this->owner->getPosition();

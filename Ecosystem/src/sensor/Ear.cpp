@@ -2,6 +2,7 @@
 #include "Ear.h"
 #include "../bug/Bug.h"
 #include "../../include/Random.h"
+#include "../../include/HMI/UImg.h"
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
@@ -31,15 +32,19 @@ Sensor* Ear::clone() const {
 
 void Ear::draw(UImg &support) const {
     T* color = new T[3];
-    color[0] = 100;
-    color[1] = 100;
-    color[2] = 100;
+    color[0] = 200;
+    color[1] = 200;
+    color[2] = 200;
     
+    double orientation = this->owner->getOrientation(); // rad
     auto position = this->owner->getPosition();
     int x = position.first;
     int y = position.second;
     
-    support.draw_circle(x, y, this->distance/2., color, 0.05);
+    double x1 = x + std::cos(orientation)*Bug::SIZE/2.1;
+    double y1 = y - std::sin(orientation)*Bug::SIZE/2.1;
+    
+    support.draw_circle(x1, y1, this->distance/2., color, 0.05);
 }
 
 bool Ear::isDetected(const Bug& bug) const {

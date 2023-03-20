@@ -92,14 +92,11 @@ Bug::~Bug() {
 }
 
 void Bug::action() {
-    cout << "Bug action" << endl;
     age++;
     if (age > ageLimit) {
         alive = false;
         return;
     }
-    
-    cout << "Bug alive in action" << endl;
 
     const auto neighbors = milieu->getNeighbors(*this);
     
@@ -121,17 +118,14 @@ void Bug::action() {
         behavior->updateParameters(this);
     }
     
-    cout << "Bug behaviored" << endl;
-    
     move();
 }
 
 void Bug::draw(UImg &support) {
-    cout << "Bug draw" << endl;
     double xt = x + cos(orientation) * SIZE / 2.1;
     double yt = y - sin(orientation) * SIZE / 2.1;
 
-    for (auto const sensor : sensors) {
+    for (auto sensor : sensors) {
         sensor->draw(support);
     }
     
@@ -151,8 +145,8 @@ bool Bug::isDetected(const Bug& bug) const {
 }
 
 void Bug::initLocation(int xLim, int yLim) {
-    x = rand() % xLim;
-    y = rand() % yLim;
+    this->x = rand() % xLim;
+    this->y = rand() % yLim;
 }
 
 
@@ -168,7 +162,7 @@ double Bug::getCamouflageCapacity() const { return camouflageCapacity; }
 
 double Bug::getOrientation() const { return orientation; }
 
-pair<int, int> Bug::getPosition() const { return {x, y}; }
+pair<int, int> Bug::getPosition() const { return {this->x, this->y}; }
 
 void Bug::switchToFastVelocity() { this->currentVelocity = fastVelocity; }
 
