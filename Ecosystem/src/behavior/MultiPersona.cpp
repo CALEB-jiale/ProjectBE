@@ -25,7 +25,6 @@ MultiPersona::MultiPersona(Milieu* milieu, string name, std::map<string, Behavio
 MultiPersona::~MultiPersona() { LOG_DEBUG("Destroy MultiPersona behavior operand"); }
 
 void MultiPersona::updateParameters(Bug* bug) {
-    cout << "mul up" << endl;
     auto random_number = (rand() % behaviors.size());
     behaviors[random_number]->updateParameters(bug);
 }

@@ -19,18 +19,14 @@ Fearful::Fearful(Milieu* milieu, string name) {
 Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
 
 void Fearful::updateParameters(Bug *bug) {
-    cout << "fearful up" << endl;
-    
-    vector<Bug *> neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> neighbors = milieu->getNeighbors(bug);
     int num_neighbor = neighbors.size();
     
     if (num_neighbor > 0) {
         double avg_orientation = 0;
         
         for (auto neighbor : neighbors) {
-            auto neighbor_pos = neighbor->getPosition();
-            auto bug_pos = bug->getPosition();
-            double neighbor_orientation = atan2(neighbor_pos.second - bug_pos.second, neighbor_pos.first - bug_pos.first);
+            double neighbor_orientation = atan2(neighbor->getY() - bug->getY(), neighbor->getX() - bug->getX());
             while (neighbor_orientation < 0) {
                 neighbor_orientation += 2 * M_PI;
             }

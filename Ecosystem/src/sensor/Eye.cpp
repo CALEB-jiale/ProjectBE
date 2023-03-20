@@ -28,8 +28,8 @@ Eye::Eye(Bug* owner, double detectCapacity, double distance, double angle) {
     this->angle = angle;
 }
 
-Sensor* Eye::clone() const {
-    return dynamic_cast<Sensor *>(new Eye(this->owner, this->detectCapacity, this->distance, this->angle));
+Sensor* Eye::clone(Bug* owner) const {
+    return dynamic_cast<Sensor *>(new Eye(owner, this->detectCapacity, this->distance, this->angle));
 }
 
 void Eye::draw(UImg &support) const {
@@ -39,9 +39,8 @@ void Eye::draw(UImg &support) const {
     color[2] = 200;
     
     double orientation = this->owner->getOrientation(); // rad
-    auto position = this->owner->getPosition();
-    int x = position.first;
-    int y = position.second;
+    int x = this->owner->getX();
+    int y = this->owner->getY();
     
     // The origin is in the upper left corner
     // x-axis goes right
@@ -59,18 +58,16 @@ void Eye::draw(UImg &support) const {
     support.draw_triangle(x1, y1, x2, y2, x3, y3, color, 0.2);
 }
 
-bool Eye::isDetected(const Bug& bug) const {
-    if (this->detectCapacity <= bug.getCamouflageCapacity()) {
+bool Eye::isDetected(Bug* bug) const {
+    if (this->detectCapacity <= bug->getCamouflageCapacity()) {
         return false;
     }
     
-    auto position1 = this->owner->getPosition();
-    int x1 = position1.first;
-    int y1 = position1.second;
+    int x1 = this->owner->getX();
+    int y1 = this->owner->getY();
     
-    auto position2 = bug.getPosition();
-    int x2 = position2.first;
-    int y2 = position2.second;
+    int x2 = bug->getX();
+    int y2 = bug->getY();
     
     double myDistance = std::sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
     if (myDistance >= this->distance) {

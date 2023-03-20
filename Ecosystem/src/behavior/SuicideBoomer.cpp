@@ -30,21 +30,17 @@ SuicideBoomer::~SuicideBoomer() {
 }
 
 void SuicideBoomer::updateParameters(Bug *bug) {
-    cout << "SuicideBoomer up" << endl;
-    
-    auto bug_pos = bug->getPosition();
-    auto bug_x = bug_pos.first;
-    auto bug_y = bug_pos.second;
+    auto bug_x = bug->getX();
+    auto bug_y = bug->getY();
 
     int closest_neighbor_x;
     int closest_neighbor_y;
     double closest_distance = std::numeric_limits<double>::infinity();
 
-    vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> const neighbors = milieu->getNeighbors(bug);
     for (auto neighbor : neighbors) {
-        auto neighbor_coord = neighbor->getPosition();
-        auto neighbor_x = neighbor_coord.first;
-        auto neighbor_y = neighbor_coord.second;
+        auto neighbor_x = neighbor->getX();
+        auto neighbor_y = neighbor->getY();
 
         double diff_distance = pow(neighbor_x - bug_x, 2) + pow(neighbor_y - bug_y, 2);
 

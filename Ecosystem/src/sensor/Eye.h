@@ -16,9 +16,9 @@ public:
     
     Eye(Bug* owner);
     Eye(Bug* owner, double detectCapacity, double distance, double angle);
-    virtual Sensor* clone() const;
-    virtual void draw(UImg& support) const;
-    virtual bool isDetected(const Bug& bug) const;
+    virtual Sensor* clone(Bug* owner) const override;
+    virtual void draw(UImg& support) const override;
+    virtual bool isDetected(Bug* bug) const override;
 };
 
 #endif

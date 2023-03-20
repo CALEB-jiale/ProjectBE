@@ -22,9 +22,7 @@ Social::Social(Milieu* milieu, string name) {
 Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
 
 void Social::updateParameters(Bug *bug) {
-    cout << "Social up" << endl;
-    
-    vector<Bug *> const neighbors = milieu->getNeighbors(*bug);
+    vector<Bug *> const neighbors = milieu->getNeighbors(bug);
     
     if (neighbors.size() > 0) {
         double orientation = 0;

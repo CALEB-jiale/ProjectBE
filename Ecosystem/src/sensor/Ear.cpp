@@ -26,20 +26,19 @@ Ear::Ear(Bug* owner, double detectCapacity, double distance) {
     this->angle = 2 * M_PI;
 }
 
-Sensor* Ear::clone() const {
-    return dynamic_cast<Sensor *>(new Ear(this->owner, this->detectCapacity, this->distance));
+Sensor* Ear::clone(Bug* owner) const {
+    return dynamic_cast<Sensor *>(new Ear(owner, this->detectCapacity, this->distance));
 }
 
 void Ear::draw(UImg &support) const {
     T* color = new T[3];
-    color[0] = 200;
-    color[1] = 200;
-    color[2] = 200;
+    color[0] = 225;
+    color[1] = 0;
+    color[2] = 0;
     
     double orientation = this->owner->getOrientation(); // rad
-    auto position = this->owner->getPosition();
-    int x = position.first;
-    int y = position.second;
+    int x = this->owner->getX();
+    int y = this->owner->getY();
     
     double x1 = x + std::cos(orientation)*Bug::SIZE/2.1;
     double y1 = y - std::sin(orientation)*Bug::SIZE/2.1;
@@ -47,18 +46,16 @@ void Ear::draw(UImg &support) const {
     support.draw_circle(x1, y1, this->distance/2., color, 0.05);
 }
 
-bool Ear::isDetected(const Bug& bug) const {
-    if (this->detectCapacity <= bug.getCamouflageCapacity()) {
+bool Ear::isDetected(Bug* bug) const {
+    if (this->detectCapacity <= bug->getCamouflageCapacity()) {
         return false;
     }
     
-    auto position1 = this->owner->getPosition();
-    int x1 = position1.first;
-    int y1 = position1.second;
+    int x1 = this->owner->getX();
+    int y1 = this->owner->getY();
     
-    auto position2 = bug.getPosition();
-    int x2 = position2.first;
-    int y2 = position2.second;
+    int x2 = bug->getX();
+    int y2 = bug->getY();
     
     double myDistance = std::sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
     

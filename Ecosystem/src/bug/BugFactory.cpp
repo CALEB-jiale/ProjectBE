@@ -1,5 +1,6 @@
 #include "BugFactory.h"
 #include "Bug.h"
+#include "../environment/Milieu.h"
 #include "../sensor/SensorFactory.h"
 #include "../behavior/BehaviorFactory.h"
 #include "../accessory/AccessoryFacade.h"
@@ -40,6 +41,7 @@ Bug* BugFactory::getSuicideBoomer() {
     sensorFactory->attachSensors(bug);
     Behavior* behavior = behaviorFactory->getSuicideBoomer();
     bug->setBehavior(behavior);
+    Milieu::NUM_SUCIDE_BOOMER++;
     return bug;
 }
 
@@ -49,6 +51,7 @@ Bug* BugFactory::getCareful() {
     sensorFactory->attachSensors(bug);
     Behavior* behavior = behaviorFactory->getCareful();
     bug->setBehavior(behavior);
+    Milieu::NUM_CAREFUL++;
     return bug;
 }
 
@@ -58,6 +61,7 @@ Bug* BugFactory::getMultiPersona() {
     sensorFactory->attachSensors(bug);
     Behavior* behavior = behaviorFactory->getMultiPersona();
     bug->setBehavior(behavior);
+    Milieu::NUM_MULTI_PERSONA++;
     return bug;
 }
 
@@ -67,6 +71,7 @@ Bug* BugFactory::getSocial() {
     sensorFactory->attachSensors(bug);
     Behavior* behavior = behaviorFactory->getSocial();
     bug->setBehavior(behavior);
+    Milieu::NUM_SOCIAL++;
     return bug;
 }
 
@@ -76,5 +81,6 @@ Bug* BugFactory::getFearful() {
     sensorFactory->attachSensors(bug);
     Behavior* behavior = behaviorFactory->getFearful();
     bug->setBehavior(behavior);
+    Milieu::NUM_FEARFUL++;
     return bug;
 }

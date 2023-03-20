@@ -22,6 +22,9 @@ AccessoryFacade::AccessoryFacade(){
 }
 
 AccessoryFacade::~AccessoryFacade() {
+    for (auto accessory : accessories) {
+        delete accessory;
+    }
     facade = nullptr;
 }
 

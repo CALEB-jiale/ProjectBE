@@ -14,9 +14,9 @@ protected:
 
 public:
     virtual ~Sensor() {};
-    virtual Sensor* clone() const = 0;
+    virtual Sensor* clone(Bug* owner) const = 0;
     virtual void draw(UImg& support) const = 0;
-    virtual bool isDetected(const Bug& bug) const = 0;
+    virtual bool isDetected(Bug* bug) const = 0;
 };
 
 #endif

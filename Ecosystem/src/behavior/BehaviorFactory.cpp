@@ -58,7 +58,7 @@ Behavior* BehaviorFactory::getSuicideBoomer() {
 }
 
 BehaviorFactory::~BehaviorFactory() {
-    for (auto& entry : behaviors) {
+    for (auto entry : behaviors) {
         delete entry.second;
     }
 

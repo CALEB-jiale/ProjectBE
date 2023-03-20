@@ -56,10 +56,13 @@ public: // Forme canonique :
     Bug(const Bug& bug); // Constructeur de copies
 
     ~Bug();
+    
+    int getX() const { return x; }
+    int getY() const { return y; }
 
     void action();
     void draw(UImg &support);
-    bool isDetected(const Bug& bug) const;
+    bool isDetected(Bug* bug) const;
     void initLocation(int xLim, int yLim);
     
     void addSensor(Sensor* sensor);
@@ -67,7 +70,6 @@ public: // Forme canonique :
     
     double getCamouflageCapacity() const;
     double getOrientation() const;
-    pair<int, int> getPosition() const;
     void switchToFastVelocity();
     void switchToNormalVelocity();
     double getCurrentVelocity() const;
@@ -77,19 +79,17 @@ public: // Forme canonique :
     void updateCamouflageCapacity(double camouflageCapacity);
     void updateDeathProbability(double deathProbFactor);
 
-    bool isCollidingWith(const Bug& b) const;
+    bool isCollidingWith(Bug* bug) const;
 
     bool isAlive() const { return alive; }
-    void kill() { alive = false; }
+    void kill();
     
-    friend bool operator==(const Bug &bug1, const Bug &bug2);
-    friend bool operator!=(const Bug &bug1, const Bug &bug2);
+//    friend bool operator==(const Bug &bug1, const Bug &bug2);
+//    friend bool operator!=(const Bug &bug1, const Bug &bug2);
 
 private:
     void move();
     void clone();
 };
-
-bool operator!=(const Bug &bug1, const Bug &bug2);
 
 #endif

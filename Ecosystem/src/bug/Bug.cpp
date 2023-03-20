@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <string>
 
 #include "../sensor/Sensor.h"
 #include "../behavior/Behavior.h"
@@ -23,7 +24,7 @@ const double Bug::MIN_SIGHT = 10.0;
 const double Bug::SIZE = 8.0;
 const double Bug::MAX_VELOCITY = 10.0;
 const double Bug::MIN_VELOCITY = 2.0;
-const double Bug::MAX_CLONE_PROB = 0.2;
+const double Bug::MAX_CLONE_PROB = 0.5;
 const double Bug::MAX_DEATH_PROB = 0.5;
 const double Bug::MIN_DEATH_PROB = 0.05;
 int Bug::NUM_BUGS = 0;
@@ -55,7 +56,7 @@ Bug::Bug(Milieu* milieu) {
 }
 
 Bug::Bug(const Bug& bug) {
-    LOG_DEBUG("Construire Bug[%d] par copy", b.identite);
+    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID);
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     x = bug.x;
@@ -68,15 +69,15 @@ Bug::Bug(const Bug& bug) {
     this->fastVelocity = bug.fastVelocity;
 
     // other variables
-    this->age = bug.age;
+    this->age = 0;
     this->ageLimit = bug.ageLimit;
-    this->alive = bug.alive;
+    this->alive = true;
 
     this->deathProbability = bug.deathProbability;
 
     sensors.clear();
     for (auto const &sensor : bug.sensors) {
-        sensors.push_back(sensor->clone());
+        sensors.push_back(sensor->clone(this));
     } // clone all the capteurs
 
     if (bug.behavior) {
@@ -86,7 +87,7 @@ Bug::Bug(const Bug& bug) {
 
 Bug::~Bug() {
     LOG_DEBUG("Destruire Bug[%d]", this->identite);
-    for (auto& sensor : sensors) {
+    for (auto sensor : sensors) {
         delete sensor;
     }
 }
@@ -94,18 +95,19 @@ Bug::~Bug() {
 void Bug::action() {
     age++;
     if (age > ageLimit) {
-        alive = false;
+        Milieu::NUM_DEATH_BY_AGE++;
+        kill();
         return;
     }
 
-    const auto neighbors = milieu->getNeighbors(*this);
-    
-    cout << "Bug neighbor getted" << endl;
+    const auto neighbors = milieu->getNeighbors(this);
     
     for (auto neighbor : neighbors) {
-        if (this->isCollidingWith(*neighbor)) {
+        if (this->isCollidingWith(neighbor)) {
+            Milieu::NUM_COLLISION++;
             if (Random::get<bool>(deathProbability)) {
-                alive = false;
+                Milieu::NUM_DEATH_BY_COLLISION++;
+                kill();
                 return;
             }
             this->orientation = orientation + M_PI;
@@ -118,10 +120,13 @@ void Bug::action() {
         behavior->updateParameters(this);
     }
     
+    clone();
     move();
 }
 
 void Bug::draw(UImg &support) {
+    cout << "Bug draw" << endl;
+    
     double xt = x + cos(orientation) * SIZE / 2.1;
     double yt = y - sin(orientation) * SIZE / 2.1;
 
@@ -135,8 +140,8 @@ void Bug::draw(UImg &support) {
     support.draw_circle(xt, yt, SIZE / 2., color.data());
 }
 
-bool Bug::isDetected(const Bug& bug) const {
-    for (auto const sensor : sensors) {
+bool Bug::isDetected(Bug* bug) const {
+    for (auto sensor : sensors) {
         if (sensor->isDetected(bug)) {
             return true;
         }
@@ -162,8 +167,6 @@ double Bug::getCamouflageCapacity() const { return camouflageCapacity; }
 
 double Bug::getOrientation() const { return orientation; }
 
-pair<int, int> Bug::getPosition() const { return {this->x, this->y}; }
-
 void Bug::switchToFastVelocity() { this->currentVelocity = fastVelocity; }
 
 void Bug::switchToNormalVelocity() { this->currentVelocity = normalVelocity; }
@@ -186,10 +189,27 @@ void Bug::updateDeathProbability(double deathProbFactor) {
     deathProbability = deathProbability * deathProbFactor;
 }
 
-bool Bug::isCollidingWith(const Bug& b) const {
-    int dx = x - b.x;
-    int dy = y - b.y;
+bool Bug::isCollidingWith(Bug* bug) const {
+    int dx = x - bug->getX();
+    int dy = y - bug->getY();
     return dx * dx + dy * dy <= SIZE * SIZE;
+}
+
+void Bug::kill() {
+    alive = false;
+    Milieu::NUM_BUG--;
+    string behaviorName = this->behavior->getBehaviorName();
+    if(behaviorName == "Carefull") {
+        Milieu::NUM_CAREFUL--;
+    } else if (behaviorName == "Fearful") {
+        Milieu::NUM_FEARFUL--;
+    } else if (behaviorName == "MultiPersona") {
+        Milieu::NUM_MULTI_PERSONA--;
+    } else if (behaviorName == "Social") {
+        Milieu::NUM_SOCIAL--;
+    } else if (behaviorName == "SuicideBoomer") {
+        Milieu::NUM_SUCIDE_BOOMER--;
+    }
 }
 
 void Bug::move() {
@@ -227,13 +247,15 @@ void Bug::move() {
 
 void Bug::clone() {
     if (Random::get<bool>(cloneProbability)) {
+        cout << "Bug clone" << endl;
+        Milieu::NUM_CLONE++;
         Bug bug(*this);
-        milieu->addBug(bug);
+        milieu->addBug(&bug);
     }
 }
 
-bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }
-
-bool operator==(const Bug &bug1, const Bug &bug2) {
-  return (bug1.ID == bug2.ID);
-}
+//bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }
+//
+//bool operator==(const Bug &bug1, const Bug &bug2) {
+//  return (bug1.ID == bug2.ID);
+//}

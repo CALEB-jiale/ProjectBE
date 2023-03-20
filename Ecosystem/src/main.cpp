@@ -2,6 +2,7 @@
 #include <array>
 
 #include "./environment/Aquarium.h"
+#include "constants.h"
 
 //#include "constants.h"
 
@@ -17,7 +18,7 @@ void showMessageBar() {
     cout << "[3] : Suicide Boomer - Red" << endl;
     cout << "[4] : Social - Green" << endl;
     cout << "[5] : Careful - Purple " << endl;
-    cout << "Please set the number for each type of bug." << endl;
+    cout << "Please set the number for each type of bug (Enter -1 to exit)." << endl;
 }
 
 std::array<int, 5> getNums() {
@@ -29,8 +30,8 @@ std::array<int, 5> getNums() {
         std::cout << "[" << i + 1 << "] :";
         std::cin >> nums[i];
 
-        if (nums[i] <= 0) {
-            nums[i] = 0;
+        if (nums[i] < 0) {
+            exit(0);
         }
     }
 
@@ -38,16 +39,18 @@ std::array<int, 5> getNums() {
 }
 
 int main() {
-    showMessageBar();
-    std::array<int, 5> nums = getNums();
-    
-    Aquarium ecosysteme(640, 480, 30);
+    while(1) {
+        showMessageBar();
+        std::array<int, 5> nums = getNums();
+        
+        Aquarium ecosysteme(MILIEU_WIDTH, MILIEU_HEIGHT+INFO_BAR_HEIGHT, 30);
 
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < nums[i]; j++) {
-            ecosysteme.addBug(i+1);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < nums[i]; j++) {
+                ecosysteme.addBug(i+1);
+            }
         }
+        ecosysteme.run();
     }
-    ecosysteme.run();
     return 0;
 }

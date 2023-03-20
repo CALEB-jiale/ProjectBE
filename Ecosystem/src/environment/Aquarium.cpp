@@ -23,8 +23,9 @@ Aquarium::Aquarium(int width, int height, int _delay) : CImgDisplay(), delay(_de
 }
 
 Aquarium::~Aquarium() {
-   cout << "Destruct Aquarium" << endl;
-   delete milieu;
+    cout << "Destruct Aquarium" << endl;
+    delete milieu;
+    delete bugFactory;
 }
 
 void Aquarium::addBug(int token){
@@ -34,19 +35,19 @@ void Aquarium::addBug(int token){
     
     switch(token) {
         case 1:
-            milieu->addBug(*(bugFactory->getMultiPersona()));
+            milieu->addBug(bugFactory->getMultiPersona());
             break;
         case 2:
-            milieu->addBug(*(bugFactory->getFearful()));
+            milieu->addBug(bugFactory->getFearful());
             break;
         case 3:
-            milieu->addBug(*(bugFactory->getSuicideBoomer()));
+            milieu->addBug(bugFactory->getSuicideBoomer());
             break;
         case 4:
-            milieu->addBug(*(bugFactory->getSocial()));
+            milieu->addBug(bugFactory->getSocial());
             break;
         case 5:
-            milieu->addBug(*(bugFactory->getCareful()));
+            milieu->addBug(bugFactory->getCareful());
             break;
     }
 }
