@@ -53,6 +53,14 @@ void SuicideBoomer::updateParameters(Bug *bug) {
 
     if (closest_distance < std::numeric_limits<double>::infinity()) {
         double orientation = atan2(closest_neighbor_y - bug_y, closest_neighbor_x - bug_x);
+        
+        while (orientation < 0) {
+            orientation += 2 * M_PI;
+        }
+        while (orientation >= 2 * M_PI) {
+            orientation -= 2 * M_PI;
+        }
+        
         bug->setOrientation(orientation);
     }
 }

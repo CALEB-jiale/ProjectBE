@@ -43,7 +43,7 @@ void Ear::draw(UImg &support) const {
     double x1 = x + std::cos(orientation)*Bug::SIZE/2.1;
     double y1 = y - std::sin(orientation)*Bug::SIZE/2.1;
     
-    support.draw_circle(x1, y1, this->distance/2., color, 0.05);
+    support.draw_circle(x1, y1, this->distance, color, 0.05);
 }
 
 bool Ear::isDetected(Bug* bug) const {

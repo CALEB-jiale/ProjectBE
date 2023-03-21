@@ -8,9 +8,9 @@
 using Random = effolkronium::random_static;
 
 double Eye::ANGLE_MIN = 0.2 * M_PI;
-double Eye::ANGLE_MAX = 1.8 * M_PI;
+double Eye::ANGLE_MAX = M_PI;
 double Eye::DISTANCE_MIN = 0.;
-double Eye::DISTANCE_MAX = 30.;
+double Eye::DISTANCE_MAX = 60.;
 double Eye::DETECT_CAPACITY_MIN = 20.;
 double Eye::DETECT_CAPACITY_MAX = 100.;
 
@@ -51,7 +51,7 @@ void Eye::draw(UImg &support) const {
     
     double x2 = x1 + std::cos(orientation + this->angle / 2) * this->distance;
     double y2 = y1 - std::sin(orientation + this->angle / 2) * this->distance;
-
+    
     double x3 = x1 + std::cos(orientation - this->angle / 2) * this->distance;
     double y3 = y1 - std::sin(orientation - this->angle / 2) * this->distance;
     
