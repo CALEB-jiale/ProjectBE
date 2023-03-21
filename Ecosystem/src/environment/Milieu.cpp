@@ -33,6 +33,7 @@ void Milieu::step() {
         if(isDead) delete b;
         return isDead;
     }), listBugs.end());
+    
     for (auto it = listBugs.begin(); it != listBugs.end(); ++it){
         (*it)->action();
         (*it)->draw(*this);
