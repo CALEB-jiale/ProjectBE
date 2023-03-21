@@ -57,7 +57,6 @@ Bug::Bug(Milieu* milieu) {
 
 Bug::Bug(const Bug& bug) {
     LOG_DEBUG("Construire Bug[%d] par copy", bug.ID)
-    this->copied = true;
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     
