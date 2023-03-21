@@ -114,3 +114,17 @@ void Milieu::showAnalyseResult() {
     draw_text(350, MILIEU_HEIGHT+60, numCollision.c_str() , color.data(),0,1,24);
     draw_text(350, MILIEU_HEIGHT+90, numClone.c_str() , color.data(),0,1,24);
 }
+
+void Milieu::resetAnalyseResult() {
+    Milieu::NUM_BUG = 0;
+    Milieu::NUM_COLLISION = 0;
+    Milieu::NUM_CLONE = 0;
+    Milieu::NUM_DEATH_BY_COLLISION = 0;
+    Milieu::NUM_DEATH_BY_KILL = 0;
+    Milieu::NUM_DEATH_BY_AGE = 0;
+    Milieu::NUM_CAREFUL = 0;
+    Milieu::NUM_FEARFUL = 0;
+    Milieu::NUM_MULTI_PERSONA = 0;
+    Milieu::NUM_SOCIAL = 0;
+    Milieu::NUM_SUCIDE_BOOMER = 0;
+}

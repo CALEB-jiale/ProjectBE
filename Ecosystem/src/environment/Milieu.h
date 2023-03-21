@@ -38,6 +38,7 @@ public:
     int getHeight() const { return height - INFO_BAR_HEIGHT; }
     void kill();
     void showAnalyseResult();
+    void resetAnalyseResult();
 };
 
 

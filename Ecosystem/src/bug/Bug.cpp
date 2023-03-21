@@ -9,9 +9,8 @@
 
 #include "../sensor/Sensor.h"
 #include "../behavior/Behavior.h"
-#include "../../include/Random.h"
-#include "../../include/LogUtil.h"
 #include "../environment/Milieu.h"
+#include "../../include/Random.h"
 
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
@@ -51,12 +50,11 @@ Bug::Bug(Milieu* milieu) {
     this->deathProbability = Random::get(Bug::MIN_DEATH_PROB, Bug::MAX_DEATH_PROB);
 
     this->behavior = nullptr;
-    
-    LOG_DEBUG("Construire Bug[%d] par default", this->identite);
 }
 
+
 Bug::Bug(const Bug& bug) {
-    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID)
+    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID);
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     
@@ -118,8 +116,6 @@ void Bug::action() {
             }
         }
     }
-    
-    cout << "Bug penged" << endl;
 
     if (behavior) {
         behavior->updateParameters(this);
@@ -256,9 +252,3 @@ void Bug::clone() {
         milieu->addBug(bug);
     }
 }
-
-//bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }
-//
-//bool operator==(const Bug &bug1, const Bug &bug2) {
-//  return (bug1.ID == bug2.ID);
-//}
