@@ -52,15 +52,15 @@ int main() {
         std::array<int, 5> nums = getNums();
         
         Aquarium ecosysteme(MILIEU_WIDTH, MILIEU_HEIGHT+INFO_BAR_HEIGHT, 30);
+        
+        if (nums[5] == 1) {
+            ecosysteme.reset();
+        }
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < nums[i]; j++) {
                 ecosysteme.addBug(i+1);
             }
-        }
-        
-        if (nums[5] == 1) {
-            ecosysteme.reset();
         }
         
         ecosysteme.run();

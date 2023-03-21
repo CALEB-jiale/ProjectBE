@@ -243,9 +243,21 @@ void Bug::move() {
 
 void Bug::clone() {
     if (Random::get<bool>(cloneProbability)) {
-        cout << "Bug clone" << endl;
         Milieu::NUM_CLONE++;
         Bug* bug = new Bug(*this);
         milieu->addBug(bug);
+        
+        string behaviorName = this->behavior->getBehaviorName();
+        if(behaviorName == "Carefull") {
+            Milieu::NUM_CAREFUL++;
+        } else if (behaviorName == "Fearful") {
+            Milieu::NUM_FEARFUL++;
+        } else if (behaviorName == "MultiPersona") {
+            Milieu::NUM_MULTI_PERSONA++;
+        } else if (behaviorName == "Social") {
+            Milieu::NUM_SOCIAL++;
+        } else if (behaviorName == "SuicideBoomer") {
+            Milieu::NUM_SUCIDE_BOOMER++;
+        }
     }
 }
