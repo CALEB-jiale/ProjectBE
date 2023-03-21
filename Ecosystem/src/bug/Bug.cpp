@@ -47,8 +47,8 @@ Bug::Bug(Milieu* milieu) {
     this-> alive = true;
 
     this->camouflageCapacity = 0;
-    this->cloneProbability = MAX_CLONE_PROB;
-    this->deathProbability = Random::get(Bug::MIN_AGE, Bug::MAX_AGE);
+    this->cloneProbability = Random::get(0., Bug::MAX_CLONE_PROB);
+    this->deathProbability = Random::get(Bug::MIN_DEATH_PROB, Bug::MAX_DEATH_PROB);
 
     this->behavior = nullptr;
     
@@ -59,6 +59,7 @@ Bug::Bug(const Bug& bug) {
     LOG_DEBUG("Construire Bug[%d] par copy", bug.ID);
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
+    
     x = bug.x;
     y = bug.y;
     orientation = bug.orientation;
@@ -73,6 +74,8 @@ Bug::Bug(const Bug& bug) {
     this->ageLimit = bug.ageLimit;
     this->alive = true;
 
+    this->camouflageCapacity = bug.camouflageCapacity;
+    this->cloneProbability = bug.cloneProbability;
     this->deathProbability = bug.deathProbability;
 
     sensors.clear();
@@ -81,7 +84,7 @@ Bug::Bug(const Bug& bug) {
     } // clone all the capteurs
 
     if (bug.behavior) {
-        behavior = bug.behavior;
+        this->behavior = bug.behavior;
     } // clone the behavior
 }
 
@@ -103,14 +106,16 @@ void Bug::action() {
     const auto neighbors = milieu->getNeighbors(this);
     
     for (auto neighbor : neighbors) {
-        if (this->isCollidingWith(neighbor)) {
-            Milieu::NUM_COLLISION++;
-            if (Random::get<bool>(deathProbability)) {
-                Milieu::NUM_DEATH_BY_COLLISION++;
-                kill();
-                return;
+        if(neighbor->isAlive()) {
+            if (this->isCollidingWith(neighbor)) {
+                Milieu::NUM_COLLISION++;
+                if (Random::get<bool>(deathProbability)) {
+                    Milieu::NUM_DEATH_BY_COLLISION++;
+                    kill();
+                    return;
+                }
+                this->orientation = orientation + M_PI;
             }
-            this->orientation = orientation + M_PI;
         }
     }
     
@@ -246,12 +251,12 @@ void Bug::move() {
 }
 
 void Bug::clone() {
-    if (Random::get<bool>(cloneProbability)) {
-        cout << "Bug clone" << endl;
-        Milieu::NUM_CLONE++;
-        Bug bug(*this);
-        milieu->addBug(&bug);
-    }
+//    if (Random::get<bool>(cloneProbability)) {
+//        cout << "Bug clone" << endl;
+//        Milieu::NUM_CLONE++;
+//        Bug* bug = new Bug(*this);
+//        milieu->addBug(bug);
+//    }
 }
 
 //bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }

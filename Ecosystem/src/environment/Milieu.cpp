@@ -28,11 +28,10 @@ Milieu::~Milieu() {
 
 void Milieu::step() {
     cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
-    for (std::vector<Bug*>::iterator it = listBugs.begin(); it != listBugs.end(); ++it){
-        if ((*it)->isAlive()) {
-            (*it)->action();
-            (*it)->draw( *this );
-        }
+    listBugs.erase(std::remove_if(listBugs.begin(), listBugs.end(), [](Bug* b){return !b->isAlive();}), listBugs.end());
+    for (auto it = listBugs.begin(); it != listBugs.end(); ++it){
+        (*it)->action();
+        (*it)->draw(*this);
     }
     showAnalyseResult();
 }
@@ -55,7 +54,7 @@ int Milieu::getNumNeighbors(Bug* bug) {
     int nb = 0;
     
     for (std::vector<Bug*>::iterator it = listBugs.begin(); it != listBugs.end(); ++it)
-        if (!(bug == *it) && bug->isDetected(*it)) {
+        if (!(bug == *it) && (*it)->isAlive() && bug->isDetected(*it)) {
             ++nb;
         }
 
@@ -66,7 +65,7 @@ std::vector<Bug*> Milieu::getNeighbors(Bug* bug) {
     std::vector<Bug*> neighbors;
 
     for (std::vector<Bug*>::iterator it = listBugs.begin(); it != listBugs.end(); ++it) {
-        if (!(bug == *it) && bug->isDetected(*it)) {
+        if (!(bug == *it) && (*it)->isAlive() && bug->isDetected(*it)) {
             neighbors.push_back(*it);
         }
     }
