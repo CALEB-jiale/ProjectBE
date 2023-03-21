@@ -54,7 +54,6 @@ Bug::Bug(Milieu* milieu) {
 
 
 Bug::Bug(const Bug& bug) {
-    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID);
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     
@@ -87,7 +86,6 @@ Bug::Bug(const Bug& bug) {
 }
 
 Bug::~Bug() {
-    LOG_DEBUG("Destruire Bug[%d]", this->identite);
     for (auto sensor : sensors) {
         delete sensor;
     }
