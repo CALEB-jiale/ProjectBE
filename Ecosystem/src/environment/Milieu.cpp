@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Milieu.h"
 #include "../bug/Bug.h"
+#include <stdexcept>
 
 const T Milieu::white[] = {(T)255, (T)255, (T)255};
 int Milieu::NUM_BUG = 0;
@@ -33,10 +34,11 @@ void Milieu::step() {
         if(isDead) delete b;
         return isDead;
     }), listBugs.end());
-    
-    for (auto it = listBugs.begin(); it != listBugs.end(); ++it){
-        (*it)->action();
-        (*it)->draw(*this);
+
+    int size = listBugs.size();
+    for (int i = 0; i < size; ++i) {
+        listBugs[i]->action();
+        listBugs[i]->draw(*this);
     }
     showAnalyseResult();
 }
