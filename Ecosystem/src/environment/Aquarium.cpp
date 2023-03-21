@@ -85,3 +85,7 @@ void Aquarium::run() {
         wait(delay);
     }
 }
+
+void Aquarium::reset() {
+    milieu->resetAnalyseResult();
+}

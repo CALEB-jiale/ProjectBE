@@ -19,6 +19,7 @@ public:
     Milieu* getMilieu() { return milieu; }
     void run();
     void addBug(int token);
+    void reset();
 };
 
 #endif

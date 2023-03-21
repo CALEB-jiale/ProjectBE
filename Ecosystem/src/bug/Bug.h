@@ -84,9 +84,6 @@ public: // Forme canonique :
     bool isAlive() const { return alive; }
     void kill();
     
-//    friend bool operator==(const Bug &bug1, const Bug &bug2);
-//    friend bool operator!=(const Bug &bug1, const Bug &bug2);
-
 private:
     void move();
     void clone();

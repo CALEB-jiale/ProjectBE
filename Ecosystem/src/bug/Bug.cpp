@@ -16,8 +16,8 @@
 using Random = effolkronium::random_static;
 using namespace std;
 
-const double Bug::MAX_AGE = 250;
-const double Bug::MIN_AGE = 50;
+const double Bug::MAX_AGE = 1000;
+const double Bug::MIN_AGE = 100;
 const double Bug::MAX_SIGHT = 30.0;
 const double Bug::MIN_SIGHT = 10.0;
 const double Bug::SIZE = 8.0;
@@ -52,7 +52,7 @@ Bug::Bug(Milieu* milieu) {
     this->behavior = nullptr;
 }
 
-Bug::Bug(const Bug& bug) {=
+Bug::Bug(const Bug& bug) {
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     
@@ -85,7 +85,6 @@ Bug::Bug(const Bug& bug) {=
 }
 
 Bug::~Bug() {
-    LOG_DEBUG("Destruire Bug[%d]", this->identite);
     for (auto sensor : sensors) {
         delete sensor;
     }
