@@ -22,11 +22,11 @@ const double Bug::MIN_AGE = 50;
 const double Bug::MAX_SIGHT = 30.0;
 const double Bug::MIN_SIGHT = 10.0;
 const double Bug::SIZE = 8.0;
-const double Bug::MAX_VELOCITY = 10.0;
+const double Bug::MAX_VELOCITY = 3.0;
 const double Bug::MIN_VELOCITY = 2.0;
-const double Bug::MAX_CLONE_PROB = 0.5;
-const double Bug::MAX_DEATH_PROB = 0.5;
-const double Bug::MIN_DEATH_PROB = 0.05;
+const double Bug::MAX_CLONE_PROB = 0.001;
+const double Bug::MAX_DEATH_PROB = 0.05;
+const double Bug::MIN_DEATH_PROB = 0.01;
 int Bug::NUM_BUGS = 0;
 
 Bug::Bug(Milieu* milieu) {
@@ -56,7 +56,8 @@ Bug::Bug(Milieu* milieu) {
 }
 
 Bug::Bug(const Bug& bug) {
-    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID);
+    LOG_DEBUG("Construire Bug[%d] par copy", bug.ID)
+    this->copied = true;
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
     
@@ -85,7 +86,7 @@ Bug::Bug(const Bug& bug) {
 
     if (bug.behavior) {
         this->behavior = bug.behavior;
-    } // clone the behavior
+    } // set the behavior
 }
 
 Bug::~Bug() {
@@ -130,17 +131,15 @@ void Bug::action() {
 }
 
 void Bug::draw(UImg &support) {
-    cout << "Bug draw" << endl;
-    
     double xt = x + cos(orientation) * SIZE / 2.1;
     double yt = y - sin(orientation) * SIZE / 2.1;
 
     for (auto sensor : sensors) {
         sensor->draw(support);
     }
-    
+
     auto color = behavior->getColor();
-    
+
     support.draw_ellipse(x, y, SIZE, SIZE / 5., -orientation / M_PI * 180., color.data());
     support.draw_circle(xt, yt, SIZE / 2., color.data());
 }
@@ -251,12 +250,12 @@ void Bug::move() {
 }
 
 void Bug::clone() {
-//    if (Random::get<bool>(cloneProbability)) {
-//        cout << "Bug clone" << endl;
-//        Milieu::NUM_CLONE++;
-//        Bug* bug = new Bug(*this);
-//        milieu->addBug(bug);
-//    }
+    if (Random::get<bool>(cloneProbability)) {
+        cout << "Bug clone" << endl;
+        Milieu::NUM_CLONE++;
+        Bug* bug = new Bug(*this);
+        milieu->addBug(bug);
+    }
 }
 
 //bool operator!=(const Bug &bug1, const Bug &bug2) { return !(bug1 == bug2); }
