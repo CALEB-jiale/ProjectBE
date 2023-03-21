@@ -18,7 +18,7 @@ AccessoryFacade::AccessoryFacade(){
     
     addAccessory(new Camouflage(), 1);
     addAccessory(new Shell(), 1);
-    addAccessory(new Fin(), 6);
+    addAccessory(new Fin(), 2);
 }
 
 AccessoryFacade::~AccessoryFacade() {

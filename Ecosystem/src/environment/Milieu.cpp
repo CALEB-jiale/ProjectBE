@@ -28,7 +28,11 @@ Milieu::~Milieu() {
 
 void Milieu::step() {
     cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
-    listBugs.erase(std::remove_if(listBugs.begin(), listBugs.end(), [](Bug* b){return !b->isAlive();}), listBugs.end());
+    listBugs.erase(std::remove_if(listBugs.begin(), listBugs.end(), [](Bug* b){
+        bool isDead = !b->isAlive();
+        if(isDead) delete b;
+        return isDead;
+    }), listBugs.end());
     for (auto it = listBugs.begin(); it != listBugs.end(); ++it){
         (*it)->action();
         (*it)->draw(*this);
