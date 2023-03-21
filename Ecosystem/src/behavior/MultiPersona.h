@@ -1,9 +1,5 @@
-//
-// Created by Franck XU on 16/03/2023.
-//
-
-#ifndef PROJECTBE_MULTIPERSONNA_H
-#define PROJECTBE_MULTIPERSONNA_H
+#ifndef _MULTIPERSONA_H_
+#define _MULTIPERSONA_H_
 
 #include "Behavior.h"
 #include "../bug/Bug.h"
@@ -13,14 +9,19 @@
 #include <map>
 
 class MultiPersona : public Behavior {
+private:
     std::vector<Behavior*> behaviors;
+    Behavior* currentBehavior;
+    int time;
+    int numBehavior;
 public:
     MultiPersona(Milieu* milieu, string name, std::map<string, Behavior*> &behaviors);
     ~MultiPersona() override;
     void updateParameters(Bug* bug) override;
+    void updateBehavior();
     MultiPersona(const MultiPersona&) = delete;
     MultiPersona& operator=(const MultiPersona&) = delete;
-    Color getColor() const override { return {125, 125, 125}; }
+    Color getColor() const override { return currentBehavior->getColor(); }
 };
 
 

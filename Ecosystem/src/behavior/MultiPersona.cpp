@@ -1,30 +1,43 @@
-//
-// Created by Franck XU on 16/03/2023.
-//
-
 #include "MultiPersona.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include "Behavior.h"
-#include <cmath>
 #include <iostream>
 #include <vector>
-#include <string>
 #include <map>
+#include "../../include/Random.h"
+
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 
 MultiPersona::MultiPersona(Milieu* milieu, string name, std::map<string, Behavior*> &behaviors) {
     this->milieu=milieu;
     this->name = name;
+    this->time = Random::get(300, 3000);
     for (auto b : behaviors) {
         this->behaviors.push_back(b.second);
     }
-    LOG_DEBUG("Create MultiPersona behavior operand");
+    this->numBehavior = this->behaviors.size() - 1;
+    int random_number = Random::get(0, numBehavior);
+    currentBehavior = this->behaviors[random_number];
 }
 
-MultiPersona::~MultiPersona() { LOG_DEBUG("Destroy MultiPersona behavior operand"); }
+MultiPersona::~MultiPersona() {
+    
+}
+
+void MultiPersona::updateBehavior() {
+    time = Random::get(300, 3000);
+    int random_number = Random::get(0, numBehavior);
+    currentBehavior = behaviors[random_number];
+}
 
 void MultiPersona::updateParameters(Bug* bug) {
-    auto random_number = (rand() % behaviors.size());
-    behaviors[random_number]->updateParameters(bug);
+    if(time == 0) {
+        updateBehavior();
+    } else {
+        time--;
+    }
+    
+    this->currentBehavior->updateParameters(bug);
 }
