@@ -108,11 +108,11 @@ void Milieu::showAnalyseResult() {
     std::string numSucideBoomer = "Number of sucide boomer : " + to_string(NUM_SUCIDE_BOOMER);
     
     draw_text(0, MILIEU_HEIGHT+30, numBug.c_str() , color.data(),0,1,24);
-    draw_text(0, MILIEU_HEIGHT+60, numCareful.c_str() , color.data(),0,1,24);
+    draw_text(0, MILIEU_HEIGHT+60, numMultiPersona.c_str() , color.data(),0,1,24);
     draw_text(0, MILIEU_HEIGHT+90, numFearful.c_str() , color.data(),0,1,24);
-    draw_text(0, MILIEU_HEIGHT+120, numMultiPersona.c_str() , color.data(),0,1,24);
+    draw_text(0, MILIEU_HEIGHT+120, numSucideBoomer.c_str() , color.data(),0,1,24);
     draw_text(0, MILIEU_HEIGHT+150, numSocial.c_str() , color.data(),0,1,24);
-    draw_text(0, MILIEU_HEIGHT+180, numSucideBoomer.c_str() , color.data(),0,1,24);
+    draw_text(0, MILIEU_HEIGHT+180, numCareful.c_str() , color.data(),0,1,24);
     
     draw_text(350, MILIEU_HEIGHT+30, numDeath.c_str() , color.data(),0,1,24);
     draw_text(350, MILIEU_HEIGHT+60, numCollision.c_str() , color.data(),0,1,24);

@@ -64,15 +64,15 @@ void Aquarium::run() {
                 close();
             } else if (is_keyA()) {
                 addBug(0);
-            } else if (is_keyM()) {
+            } else if (is_key1()) {
                 addBug(1);
-            } else if (is_keyF()) {
+            } else if (is_key2()) {
                 addBug(2);
-            } else if (is_keyB()) {
+            } else if (is_key3()) {
                 addBug(3);
-            } else if (is_keyS()) {
+            } else if (is_key4()) {
                 addBug(4);
-            } else if (is_keyC()) {
+            } else if (is_key5()) {
                 addBug(5);
             } else if (is_keyK()) {
                 milieu->kill();

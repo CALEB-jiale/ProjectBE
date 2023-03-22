@@ -6,17 +6,19 @@
 #include "Fearful.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
+#include "../../include/Random.h"
+
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 
 using namespace std;
 
 Fearful::Fearful(Milieu* milieu, string name) {
     this->milieu=milieu;
     this->name = name;
-    LOG_DEBUG("Create fearful behavior operand");
 }
 
-Fearful::~Fearful() { LOG_DEBUG("Destroy fearful behavior operand"); }
+Fearful::~Fearful() {}
 
 void Fearful::updateParameters(Bug *bug) {
     vector<Bug *> neighbors = milieu->getNeighbors(bug);
@@ -37,7 +39,9 @@ void Fearful::updateParameters(Bug *bug) {
         }
         avg_orientation /= num_neighbor;
         
-        double new_orientation = avg_orientation + M_PI;
+        auto factor = Random::get(0.2, 1.0);
+        double new_orientation = avg_orientation + M_PI * factor;
+        
         while (new_orientation < 0) {
             new_orientation += 2 * M_PI;
         }

@@ -10,24 +10,23 @@
 #include "SuicideBoomer.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <string>
 #include "UImg.h"
+#include "../../include/Random.h"
 
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 using namespace std;
 
 SuicideBoomer::SuicideBoomer(Milieu* milieu, string name) {
     this->milieu=milieu;
     this->name = name;
-    LOG_DEBUG("Create SuicideBoomer behavior operand");
 }
 
-SuicideBoomer::~SuicideBoomer() {
-    LOG_DEBUG("Destroy SuicideBoomer behavior operand");
-}
+SuicideBoomer::~SuicideBoomer() {}
 
 void SuicideBoomer::updateParameters(Bug *bug) {
     auto bug_x = bug->getX();
@@ -51,8 +50,8 @@ void SuicideBoomer::updateParameters(Bug *bug) {
         }
     }
 
-    if (closest_distance < std::numeric_limits<double>::infinity()) {
-        double orientation = atan2(closest_neighbor_y - bug_y, closest_neighbor_x - bug_x);
+    if (closest_distance < std::numeric_limits<double>::infinity() && Random::get<bool>(0.8)) {
+        double orientation = atan2(bug_y - closest_neighbor_y, bug_x - closest_neighbor_x);
         
         while (orientation < 0) {
             orientation += 2 * M_PI;

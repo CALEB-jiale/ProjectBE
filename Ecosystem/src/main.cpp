@@ -11,6 +11,8 @@ using namespace std;
 void showMessageBar() {
     system("clear");
     cout << "============================================" << endl;
+    cout << "[A] : Add a bug" << endl;
+    cout << "[K] : Kill a bug" << endl;
     cout << "============================================" << endl;
     cout << "There are 5 kinds of bugs: " << endl;
     cout << "[1] : MultiPersona" << endl;
@@ -18,7 +20,6 @@ void showMessageBar() {
     cout << "[3] : Suicide Boomer - Red" << endl;
     cout << "[4] : Social - Green" << endl;
     cout << "[5] : Careful - Purple" << endl;
-    cout << "[6] : Reset Analyse Result (0: No, 1: Yes)" << endl;
     cout << "Please set the number for each type of bug (Enter -1 to exit)." << endl;
 }
 
@@ -36,7 +37,8 @@ std::array<int, 5> getNums() {
         }
     }
 
-    std::cout << "[6] : ";
+    cout << "Reset Analyse Result ?" << endl;
+    std::cout << "(0: No, 1: Yes) : ";
     std::cin >> nums[5];
 
     if (nums[5] != 0 && nums[5] != 1) {

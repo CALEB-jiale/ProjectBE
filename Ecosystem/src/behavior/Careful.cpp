@@ -1,22 +1,23 @@
 #include "Careful.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include <cmath>
 #include <iostream>
 #include <limits>
 #include <vector>
 #include <string>
+#include "../../include/Random.h"
 
+// get base random alias which is auto seeded and has static API and internal state
+using Random = effolkronium::random_static;
 using namespace std;
 
 Careful::Careful(Milieu* milieu, string name) {
     this->milieu = milieu;
     this->name = name;
-    LOG_DEBUG("Create Careful behavior operand");
 }
 
-Careful::~Careful() { LOG_DEBUG("Destroy Careful behavior operand"); }
+Careful::~Careful() {}
 
 void Careful::updateParameters(Bug *bug) {
     auto bug_velocity = bug->getCurrentVelocity();
@@ -48,7 +49,8 @@ void Careful::updateParameters(Bug *bug) {
         // Évitement des collisions et réorientation
         double neighbor_orientation = closest_neighbor->getOrientation();
         double delta_orientation = neighbor_orientation - bug_orientation;
-        double perpendicular_orientation = delta_orientation + M_PI_2;
+        auto factor = Random::get(0.2, 0.5);
+        double perpendicular_orientation = delta_orientation + M_PI * factor;
         bug->setOrientation(perpendicular_orientation);
     }
 }
