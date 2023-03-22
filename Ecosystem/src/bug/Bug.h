@@ -20,6 +20,7 @@ private:
 
     int x;
     int y;
+    int responseTime;
     double orientation;
     // affichage
     double cumulX, cumulY;

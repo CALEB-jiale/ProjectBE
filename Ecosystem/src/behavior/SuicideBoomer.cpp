@@ -50,6 +50,8 @@ void SuicideBoomer::updateParameters(Bug *bug) {
         }
     }
 
+    // When a target appears, bug has a 0.8 probability of chasing the target
+    // This probability will prevent boomers from getting stuck together
     if (closest_distance < std::numeric_limits<double>::infinity() && Random::get<bool>(0.8)) {
         double orientation = atan2(bug_y - closest_neighbor_y, bug_x - closest_neighbor_x);
         

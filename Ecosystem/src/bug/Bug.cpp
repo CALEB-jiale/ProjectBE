@@ -23,7 +23,7 @@ const double Bug::MIN_SIGHT = 10.0;
 const double Bug::SIZE = 8.0;
 const double Bug::MAX_VELOCITY = 3.0;
 const double Bug::MIN_VELOCITY = 2.0;
-const double Bug::MAX_CLONE_PROB = 0.002;
+const double Bug::MAX_CLONE_PROB = 0.001;
 const double Bug::MAX_DEATH_PROB = 0.05;
 const double Bug::MIN_DEATH_PROB = 0.01;
 int Bug::NUM_BUGS = 0;
@@ -32,6 +32,7 @@ Bug::Bug(Milieu* milieu) {
     // Initialization
     this->milieu = milieu;
     this->ID = ++NUM_BUGS;
+    this->responseTime = 0;
 
     x = y = 0;
     cumulX = cumulY = 0.;
@@ -55,6 +56,7 @@ Bug::Bug(Milieu* milieu) {
 Bug::Bug(const Bug& bug) {
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
+    this->responseTime = 0;
     
     x = bug.x;
     y = bug.y;
@@ -109,14 +111,17 @@ void Bug::action() {
                     kill();
                     return;
                 }
-                this->orientation = orientation + M_PI;
+                auto factor = Random::get(0.2, 1.0);
+                this->orientation = orientation + M_PI * factor;
             }
         }
     }
 
     if (behavior) {
+        this->responseTime = Random::get(30, 60);
         behavior->updateParameters(this);
     }
+    responseTime--;
     
     clone();
     move();
@@ -224,17 +229,21 @@ void Bug::move() {
 
     nx = x + dx + cx;
     ny = y + dy + cy;
+    
+    auto factor_wall = Random::get(0.2, 1.0);
+    auto factor_rand = Random::get(-0.05, 0.05);
+    orientation += factor_rand * M_PI;
 
-    if ((nx < 0) || (nx > xLim - 1)) {
-        orientation = M_PI - orientation;
+    if ((nx < 0) || (nx > xLim - 1)) { // run into the wall
+        orientation = factor_wall * M_PI - orientation;
         cumulX = 0.;
     } else {
         x = static_cast<int>(nx);
         cumulX += nx - x;
     }
 
-     if ((ny < 0) || (ny > yLim - 1)) {
-        orientation = -orientation;
+     if ((ny < 0) || (ny > yLim - 1)) { // run into the wall
+        orientation = orientation + M_PI * factor_wall;
         cumulY = 0.;
     } else {
         y = static_cast<int>(ny);
