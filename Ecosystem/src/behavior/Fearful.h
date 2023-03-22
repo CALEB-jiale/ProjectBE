@@ -20,6 +20,7 @@ public:
     Fearful(const Fearful&) = delete;
     Fearful& operator=(const Fearful&) = delete;
     Color getColor() const override { return {0, 0, 255}; }
+    virtual Behavior* clone() override;
 };
 
 

@@ -64,3 +64,8 @@ void SuicideBoomer::updateParameters(Bug *bug) {
         bug->setOrientation(orientation);
     }
 }
+
+Behavior* SuicideBoomer::clone() {
+    SuicideBoomer* behavior = this;
+    return dynamic_cast<Behavior *>(behavior);
+}

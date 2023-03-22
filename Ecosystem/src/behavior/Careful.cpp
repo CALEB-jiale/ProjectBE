@@ -53,3 +53,7 @@ void Careful::updateParameters(Bug *bug) {
     }
 }
 
+Behavior* Careful::clone() {
+    Careful* behavior = this;
+    return dynamic_cast<Behavior *>(behavior);
+}

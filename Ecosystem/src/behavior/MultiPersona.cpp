@@ -19,8 +19,15 @@ MultiPersona::MultiPersona(Milieu* milieu, string name, std::map<string, Behavio
     updateBehavior();
 }
 
+MultiPersona::MultiPersona(const MultiPersona& multiPersona) {
+    this->behaviors = multiPersona.behaviors;
+    this->numBehavior = multiPersona.numBehavior;
+    this->milieu = multiPersona.milieu;
+    this->name = multiPersona.name;
+    updateBehavior();
+}
+
 MultiPersona::~MultiPersona() {
-    
 }
 
 void MultiPersona::updateBehavior() {
@@ -37,4 +44,8 @@ void MultiPersona::updateParameters(Bug* bug) {
     }
     
     this->currentBehavior->updateParameters(bug);
+}
+
+Behavior* MultiPersona::clone() {
+    return dynamic_cast<Behavior *>(new MultiPersona(*this));
 }

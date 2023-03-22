@@ -54,3 +54,8 @@ void Fearful::updateParameters(Bug *bug) {
         bug->switchToNormalVelocity();
     }
 }
+
+Behavior* Fearful::clone() {
+    Fearful* behavior = this;
+    return dynamic_cast<Behavior *>(behavior);
+}

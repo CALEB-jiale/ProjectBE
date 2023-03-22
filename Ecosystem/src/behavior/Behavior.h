@@ -18,6 +18,7 @@ protected:
 public:
     virtual ~Behavior(){};
     virtual Color getColor() const = 0;
+    virtual Behavior* clone() = 0;
     virtual void updateParameters(Bug* bug) = 0;
     string getBehaviorName() { return name; };
 };

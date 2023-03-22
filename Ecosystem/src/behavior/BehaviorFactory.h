@@ -16,6 +16,8 @@ private:
     static const string multipersona;
     static const string social;
     static const string suicideboomer;
+    
+    Milieu* milieu;
 
     std::map<string, Behavior*> behaviors;
     BehaviorFactory(Milieu* milieu);

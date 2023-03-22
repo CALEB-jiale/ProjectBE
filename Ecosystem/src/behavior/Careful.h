@@ -15,6 +15,7 @@ public:
     Careful(const Careful&) = delete;
     Careful& operator=(const Careful&) = delete;
     Color getColor() const override { return {128, 0, 128}; }
+    virtual Behavior* clone() override;
 };
 
 

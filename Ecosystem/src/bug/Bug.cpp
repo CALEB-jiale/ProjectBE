@@ -80,7 +80,7 @@ Bug::Bug(const Bug& bug) {
     } // clone all the capteurs
 
     if (bug.behavior) {
-        this->behavior = bug.behavior;
+        this->behavior = bug.behavior->clone();
     } // set the behavior
 }
 
@@ -200,6 +200,7 @@ void Bug::kill() {
     } else if (behaviorName == "Fearful") {
         Milieu::NUM_FEARFUL--;
     } else if (behaviorName == "MultiPersona") {
+        delete this->behavior;
         Milieu::NUM_MULTI_PERSONA--;
     } else if (behaviorName == "Social") {
         Milieu::NUM_SOCIAL--;

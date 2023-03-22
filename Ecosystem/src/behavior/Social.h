@@ -18,6 +18,7 @@ public:
     Social(const Social&) = delete;
     Social& operator=(const Social&) = delete;
     Color getColor() const override { return {0, 255, 0}; }
+    virtual Behavior* clone() override;
 };
 
 

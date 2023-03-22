@@ -45,3 +45,8 @@ void Social::updateParameters(Bug *bug) {
     }
     
 }
+
+Behavior* Social::clone() {
+    Social* behavior = this;
+    return dynamic_cast<Behavior *>(behavior);
+}

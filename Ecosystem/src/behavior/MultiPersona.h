@@ -19,9 +19,10 @@ public:
     ~MultiPersona() override;
     void updateParameters(Bug* bug) override;
     void updateBehavior();
-    MultiPersona(const MultiPersona&) = delete;
+    MultiPersona(const MultiPersona&); // Constructeur de copies
     MultiPersona& operator=(const MultiPersona&) = delete;
     Color getColor() const override { return currentBehavior->getColor(); }
+    virtual Behavior* clone() override;
 };
 
 

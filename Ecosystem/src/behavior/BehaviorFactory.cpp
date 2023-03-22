@@ -2,7 +2,6 @@
 #include <string>
 #include "BehaviorFactory.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include "Behavior.h"
 #include "Careful.h"
 #include "Fearful.h"
@@ -21,13 +20,11 @@ const string BehaviorFactory::suicideboomer = "SuicideBoomer";
 
 
 BehaviorFactory::BehaviorFactory(Milieu* milieu) {
+    this->milieu = milieu;
     behaviors[carefull] = new Careful(milieu, carefull);
     behaviors[fearful] = new Fearful(milieu, fearful);
     behaviors[social] = new Social(milieu, social);
     behaviors[suicideboomer] = new SuicideBoomer(milieu, suicideboomer);
-
-    behaviors[multipersona] = new MultiPersona(milieu, multipersona, behaviors);
-    LOG_DEBUG("Create Behavior Factory");
 }
 
 BehaviorFactory* BehaviorFactory::getBehaviorFactory(Milieu *milieu) {
@@ -46,7 +43,7 @@ Behavior* BehaviorFactory::getFearful() {
 }
 
 Behavior* BehaviorFactory::getMultiPersona() {
-    return behaviors[multipersona];
+    return dynamic_cast<Behavior *>(new MultiPersona(milieu, multipersona, behaviors));
 }
 
 Behavior* BehaviorFactory::getSocial() {
@@ -64,5 +61,4 @@ BehaviorFactory::~BehaviorFactory() {
 
     factory = nullptr;
     behaviors.clear();
-    LOG_DEBUG("Destroy Behavior Factory");
 }
