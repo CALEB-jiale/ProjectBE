@@ -37,8 +37,8 @@ void Milieu::step() {
 
     int size = listBugs.size();
     for (int i = 0; i < size; ++i) {
-        listBugs[i]->action();
         listBugs[i]->draw(*this);
+        listBugs[i]->action();
     }
     showAnalyseResult();
 }
