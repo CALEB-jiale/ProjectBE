@@ -5,7 +5,6 @@
 #include "Social.h"
 #include "../bug/Bug.h"
 #include "../environment/Milieu.h"
-#include "../../include/LogUtil.h"
 #include <cmath>
 #include <vector>
 #include <iostream>
@@ -16,10 +15,9 @@ using namespace std;
 Social::Social(Milieu* milieu, string name) {
     this->milieu = milieu;
     this->name = name;
-    LOG_DEBUG("Create Social behavior operand");
 }
 
-Social::~Social() { LOG_DEBUG("Destroy Social behavior operand"); }
+Social::~Social() {}
 
 void Social::updateParameters(Bug *bug) {
     vector<Bug *> const neighbors = milieu->getNeighbors(bug);
