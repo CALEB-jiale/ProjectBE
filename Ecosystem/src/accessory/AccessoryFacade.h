@@ -8,6 +8,9 @@ using namespace std;
 class Accessory;
 class Bug;
 
+// Singleton Pattern
+// Facade Pattern
+
 class AccessoryFacade {
 private:
     static AccessoryFacade* facade;
