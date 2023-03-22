@@ -37,35 +37,25 @@ std::array<int, 5> getNums() {
         }
     }
 
-    cout << "Reset Analyse Result ?" << endl;
-    std::cout << "(0: No, 1: Yes) : ";
-    std::cin >> nums[5];
-
-    if (nums[5] != 0 && nums[5] != 1) {
-        exit(0);
-    }
-
     return nums;
 }
 
 int main() {
     while(1) {
+        
         showMessageBar();
         std::array<int, 5> nums = getNums();
         
-        Aquarium ecosysteme(MILIEU_WIDTH, MILIEU_HEIGHT+INFO_BAR_HEIGHT, 30);
-        
-        if (nums[5] == 1) {
-            ecosysteme.reset();
-        }
+        Aquarium* ecosysteme = new Aquarium(MILIEU_WIDTH, MILIEU_HEIGHT+INFO_BAR_HEIGHT, 30);
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < nums[i]; j++) {
-                ecosysteme.addBug(i+1);
+                ecosysteme->addBug(i+1);
             }
         }
         
-        ecosysteme.run();
+        ecosysteme->run();
+        delete ecosysteme;
     }
     return 0;
 }

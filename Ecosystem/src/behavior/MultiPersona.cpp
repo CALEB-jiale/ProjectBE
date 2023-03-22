@@ -31,7 +31,7 @@ MultiPersona::~MultiPersona() {
 }
 
 void MultiPersona::updateBehavior() {
-    time = Random::get(300, 3000);
+    time = Random::get(30, 300);
     int random_number = Random::get(0, numBehavior);
     currentBehavior = behaviors[random_number];
 }

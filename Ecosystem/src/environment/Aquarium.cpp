@@ -61,6 +61,7 @@ void Aquarium::run() {
             cout << " (" << key() << ")" << endl;
             
             if (is_keyESC()) {
+                reset();
                 close();
             } else if (is_keyA()) {
                 addBug(0);
@@ -84,6 +85,7 @@ void Aquarium::run() {
 
         wait(delay);
     }
+    reset();
 }
 
 void Aquarium::reset() {
