@@ -8,8 +8,8 @@
 using Random = effolkronium::random_static;
 
 double Eye::ANGLE_MIN = 0.2 * M_PI;
-double Eye::ANGLE_MAX = M_PI;
-double Eye::DISTANCE_MIN = 0.;
+double Eye::ANGLE_MAX = 0.8 * M_PI;
+double Eye::DISTANCE_MIN = 10.;
 double Eye::DISTANCE_MAX = 60.;
 double Eye::DETECT_CAPACITY_MIN = 20.;
 double Eye::DETECT_CAPACITY_MAX = 100.;

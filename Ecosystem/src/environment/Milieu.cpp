@@ -80,6 +80,10 @@ std::vector<Bug*> Milieu::getNeighbors(Bug* bug) {
     return neighbors;
 }
 
+std::vector<Bug*> Milieu::getBugs() {
+    return listBugs;
+}
+
 void Milieu::kill() {
     for (std::vector<Bug*>::iterator it = listBugs.begin(); it != listBugs.end(); ++it){
         if ((*it)->isAlive()) {

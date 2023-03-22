@@ -98,11 +98,11 @@ void Bug::action() {
         return;
     }
 
-    const auto neighbors = milieu->getNeighbors(this);
+    const auto bugs = milieu->getBugs();
     
-    for (auto neighbor : neighbors) {
-        if(neighbor->isAlive()) {
-            if (this->isCollidingWith(neighbor)) {
+    for (auto bug : bugs) {
+        if(bug->isAlive() && !(bug == this)) {
+            if (this->isCollidingWith(bug)) {
                 Milieu::NUM_COLLISION++;
                 if (Random::get<bool>(deathProbability)) {
                     Milieu::NUM_DEATH_BY_COLLISION++;

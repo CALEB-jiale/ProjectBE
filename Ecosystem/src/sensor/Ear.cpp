@@ -7,8 +7,8 @@
 // get base random alias which is auto seeded and has static API and internal state
 using Random = effolkronium::random_static;
 
-double Ear::DISTANCE_MIN = 0.;
-double Ear::DISTANCE_MAX = 30.;
+double Ear::DISTANCE_MIN = 10.;
+double Ear::DISTANCE_MAX = 50.;
 double Ear::DETECT_CAPACITY_MIN = 20.;
 double Ear::DETECT_CAPACITY_MAX = 100.;
 
