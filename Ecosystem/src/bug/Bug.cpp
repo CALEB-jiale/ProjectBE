@@ -32,7 +32,6 @@ Bug::Bug(Milieu* milieu) {
     // Initialization
     this->milieu = milieu;
     this->ID = ++NUM_BUGS;
-    this->responseTime = 0;
 
     x = y = 0;
     cumulX = cumulY = 0.;
@@ -56,7 +55,6 @@ Bug::Bug(Milieu* milieu) {
 Bug::Bug(const Bug& bug) {
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
-    this->responseTime = 0;
     
     x = bug.x;
     y = bug.y;
@@ -118,10 +116,8 @@ void Bug::action() {
     }
 
     if (behavior) {
-        this->responseTime = Random::get(30, 60);
         behavior->updateParameters(this);
     }
-    responseTime--;
     
     clone();
     move();
