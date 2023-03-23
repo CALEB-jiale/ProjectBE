@@ -10,7 +10,7 @@ using Random = effolkronium::random_static;
 
 void Shell::updateParameters(Bug* bug) const {
     double randomFactor = Random::get(1., Shell::FACTOR_VELOCITY);
-    bug->updateVelocity(1/randomFactor);
+    bug->updateVelocity(1/randomFactor); // Shells will slow down the speed
     
     randomFactor = Random::get(1., Shell::FACTOR_DEATH);
     bug->updateDeathProbability(randomFactor);

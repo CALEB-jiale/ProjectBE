@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// Function to display the message bar to the user
 void showMessageBar() {
     system("clear");
     cout << "============================================" << endl;

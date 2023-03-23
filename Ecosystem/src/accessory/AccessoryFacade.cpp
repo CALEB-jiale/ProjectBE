@@ -35,11 +35,13 @@ AccessoryFacade* AccessoryFacade::getAccessoryFacade() {
     return facade;
 }
 
+// Each type of accessory has a maximum number of installations
 void AccessoryFacade::addAccessory(Accessory* accessory, int num) {
     numAccessoryMax.push_back(num);
     accessories.push_back(accessory);
 }
 
+// Installation is carried out according to the maximum number of installations for each accessory
 void AccessoryFacade::attachAccessories(Bug* bug) {
     int numAccessories = accessories.size();
     for (int i = 0; i < numAccessories; i++) {

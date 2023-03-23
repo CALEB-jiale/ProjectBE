@@ -41,6 +41,7 @@ void SuicideBoomer::updateParameters(Bug *bug) {
         auto neighbor_x = neighbor->getX();
         auto neighbor_y = neighbor->getY();
 
+        // Find the nearest bug
         double diff_distance = pow(neighbor_x - bug_x, 2) + pow(neighbor_y - bug_y, 2);
 
         if (diff_distance < closest_distance) {

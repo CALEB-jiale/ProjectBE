@@ -42,6 +42,8 @@ Behavior* BehaviorFactory::getFearful() {
     return behaviors[fearful];
 }
 
+// Each bug with multiple personalities will have different personalities at the same time
+// therefore cannot use flyweight
 Behavior* BehaviorFactory::getMultiPersona() {
     return dynamic_cast<Behavior *>(new MultiPersona(milieu, multipersona, behaviors));
 }

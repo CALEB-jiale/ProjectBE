@@ -25,6 +25,7 @@ void Social::updateParameters(Bug *bug) {
     if (neighbors.size() > 0) {
         double orientation = 0;
         
+        // Get the average orientation of neighbouring bugs
         for (auto neighbor : neighbors) {
             orientation += neighbor->getOrientation();
         }

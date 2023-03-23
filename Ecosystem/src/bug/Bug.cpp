@@ -52,6 +52,7 @@ Bug::Bug(Milieu* milieu) {
     this->behavior = nullptr;
 }
 
+// copy function
 Bug::Bug(const Bug& bug) {
     this->ID = ++NUM_BUGS;
     this->milieu = bug.milieu;
@@ -91,6 +92,7 @@ Bug::~Bug() {
 }
 
 void Bug::action() {
+    // Natural death
     age++;
     if (age > ageLimit) {
         Milieu::NUM_DEATH_BY_AGE++;
@@ -98,6 +100,7 @@ void Bug::action() {
         return;
     }
 
+    // Get all bugs and detect if this bug has collided with them
     const auto bugs = milieu->getBugs();
     
     for (auto bug : bugs) {
@@ -115,15 +118,20 @@ void Bug::action() {
         }
     }
 
+    // Change the speed and direction of the bug according to its personality
     if (behavior) {
         behavior->updateParameters(this);
     }
     
+    // There is a certain probability of cloning
     clone();
+
+    // Bugs are in constant motion
     move();
 }
 
 void Bug::draw(UImg &support) {
+    // Get head coordinates
     double xt = x + cos(orientation) * SIZE / 2.1;
     double yt = y - sin(orientation) * SIZE / 2.1;
 
@@ -137,6 +145,7 @@ void Bug::draw(UImg &support) {
     support.draw_circle(xt, yt, SIZE / 2., color.data());
 }
 
+// Check if this bug detects another bug and return true if the incoming bug has been detected
 bool Bug::isDetected(Bug* bug) const {
     for (auto sensor : sensors) {
         if (sensor->isDetected(bug)) {
@@ -146,11 +155,11 @@ bool Bug::isDetected(Bug* bug) const {
     return false;
 }
 
+// Random selection of birthplace
 void Bug::initLocation(int xLim, int yLim) {
     this->x = rand() % xLim;
     this->y = rand() % yLim;
 }
-
 
 void Bug::addSensor(Sensor* sensor) {
     this->sensors.push_back(sensor);
@@ -172,6 +181,7 @@ double Bug::getCurrentVelocity() const { return currentVelocity; }
 
 void Bug::setOrientation(double orientation) { this->orientation = orientation; }
 
+// Different accessories (such as fins and shells) will change the speed of the bug
 void Bug::updateVelocity(double velocityFactor) {
     normalVelocity = normalVelocity * velocityFactor;
     fastVelocity = fastVelocity * velocityFactor;
@@ -192,6 +202,8 @@ bool Bug::isCollidingWith(Bug* bug) const {
     return dx * dx + dy * dy <= SIZE * SIZE;
 }
 
+// Mark the bugs as dead so they can be deleted in the next loop
+// if the bugs have multiple personality types, the corresponding behaviouror needs to be deleted
 void Bug::kill() {
     alive = false;
     Milieu::NUM_BUG--;
@@ -210,6 +222,7 @@ void Bug::kill() {
     }
 }
 
+// The bug is always in motion and changes direction of movement randomly
 void Bug::move() {
     int xLim = milieu->getWidth();
     int yLim = milieu->getHeight();
@@ -247,6 +260,7 @@ void Bug::move() {
     }
 }
 
+// There is a certain probability of cloning of the bug
 void Bug::clone() {
     if (Random::get<bool>(cloneProbability)) {
         Milieu::NUM_CLONE++;

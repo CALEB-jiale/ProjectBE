@@ -27,6 +27,7 @@ void Fearful::updateParameters(Bug *bug) {
     if (num_neighbor > 0) {
         double avg_orientation = 0;
         
+        // Obtain the average of the relative directions of neighbouring bugs to this bug
         for (auto neighbor : neighbors) {
             double neighbor_orientation = atan2(neighbor->getY() - bug->getY(), neighbor->getX() - bug->getX());
             while (neighbor_orientation < 0) {
@@ -39,6 +40,7 @@ void Fearful::updateParameters(Bug *bug) {
         }
         avg_orientation /= num_neighbor;
         
+        // Setting a new direction with a slight yaw
         auto factor = Random::get(0.2, 1.0);
         double new_orientation = avg_orientation + M_PI * factor;
         
@@ -52,6 +54,7 @@ void Fearful::updateParameters(Bug *bug) {
         bug->setOrientation(new_orientation);
     }
     
+    // Accelerate when the number of neighboring bugs is greater than a certain value
     if (num_neighbor > 2) {
         bug->switchToFastVelocity();
     } else {

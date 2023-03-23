@@ -36,7 +36,7 @@ void Careful::updateParameters(Bug *bug) {
         auto neighbor_x_esti = neighbor->getX() + velocity * cos(orientation) ;
         auto neighbor_y_esti = neighbor->getY() - velocity * sin(orientation);
 
-        // Estimer la distance entre les insectes et le risque de collision imminente
+        // Estimating the distance between insects and the risk of imminent collision
         double diff_distance = pow(neighbor_x_esti - bug_x_esti, 2) + pow(neighbor_y_esti - bug_y_esti, 2);
 
         if (diff_distance < closest_distance) {
@@ -46,7 +46,7 @@ void Careful::updateParameters(Bug *bug) {
     }
 
     if (closest_neighbor) {
-        // Évitement des collisions et réorientation
+        // Collision avoidance and reorientation
         double neighbor_orientation = closest_neighbor->getOrientation();
         double delta_orientation = neighbor_orientation - bug_orientation;
         auto factor = Random::get(0.2, 0.5);
